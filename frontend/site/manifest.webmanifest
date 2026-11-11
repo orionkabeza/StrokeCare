@@ -1,0 +1,10 @@
+{
+  "name": "StrokeCare",
+  "short_name": "StrokeCare",
+  "description": "Stroke prevention education and clinician-guided recovery at home.",
+  "theme_color": "#4338CA",
+  "background_color": "#F5F7FB",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

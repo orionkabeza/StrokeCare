@@ -1,0 +1,14 @@
+# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+*.sqlite3
+backend/staticfiles/
+node_modules/
+dist/
+handoff/
+.pytest_cache/
+.DS_Store
+.demo-credentials.txt
