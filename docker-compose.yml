@@ -1,0 +1,37 @@
+# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Local run: `docker compose up --build`, then open http://localhost:8000
+# NOTE: not yet run in the session that created it (no Docker daemon there).
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: strokecare
+      POSTGRES_PASSWORD: strokecare
+      POSTGRES_DB: strokecare
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strokecare"]
+      interval: 5s
+      retries: 10
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment: &env
+      DJANGO_DEBUG: "1"
+      DJANGO_SECRET_KEY: dev-only-not-a-secret
+      DATABASE_URL: postgres://strokecare:strokecare@db:5432/strokecare
+      ALLOW_DEMO_DATA: "1"
+    ports: ["8000:8000"]
+  # Runs the background jobs (caregiver alerts) every 15 minutes.
+  worker:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment: *env
+    command: ["python", "manage.py", "run_scheduler", "--interval", "900"]
+volumes:
+  pgdata:

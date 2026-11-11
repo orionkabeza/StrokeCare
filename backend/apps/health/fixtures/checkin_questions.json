@@ -1,0 +1,63 @@
+[
+  {
+    "code": "feeling-vs-yesterday",
+    "order": 1,
+    "answer_type": "choice",
+    "prompt": {
+      "en": "How did you feel today compared with yesterday?",
+      "fr": "Comment vous êtes-vous senti aujourd'hui par rapport à hier ?",
+      "rw": "Wumvise umeze ute uyu munsi ugereranyije n'ejo?"
+    },
+    "choices": [
+      {"value": "better", "label": {"en": "Better", "fr": "Mieux", "rw": "Neza kurusha ejo"}},
+      {"value": "same", "label": {"en": "About the same", "fr": "À peu près pareil", "rw": "Kimwe n'ejo"}},
+      {"value": "worse", "label": {"en": "Worse", "fr": "Moins bien", "rw": "Nabi kurusha ejo"}}
+    ],
+    "urgent_values": [],
+    "source": "Daily_CheckIn_Questions draft in the team tracker. Answer options added by the developer: Erica to confirm. French and Kinyarwanda are AI drafts awaiting a native reviewer."
+  },
+  {
+    "code": "new-or-worse-symptoms",
+    "order": 2,
+    "answer_type": "yes_no",
+    "prompt": {
+      "en": "Do you have any new symptoms, or is anything suddenly worse?",
+      "fr": "Avez-vous de nouveaux symptômes, ou quelque chose s'est-il soudain aggravé ?",
+      "rw": "Hari ibimenyetso bishya ufite, cyangwa hari ikintu cyiyongereye mu buryo butunguranye?"
+    },
+    "choices": [],
+    "urgent_values": [true],
+    "source": "Daily_CheckIn_Questions draft in the team tracker. A Yes shows urgent guidance straight away. French and Kinyarwanda are AI drafts awaiting a native reviewer."
+  },
+  {
+    "code": "movement-vs-plan",
+    "order": 3,
+    "answer_type": "choice",
+    "prompt": {
+      "en": "How did your movement go compared with your clinician's plan?",
+      "fr": "Comment se sont passés vos exercices par rapport au plan de votre soignant ?",
+      "rw": "Imyitozo yawe yagenze ite ugereranyije na gahunda y'umuganga wawe?"
+    },
+    "choices": [
+      {"value": "easier", "label": {"en": "Easier than planned", "fr": "Plus facile que prévu", "rw": "Byoroshye kuruta uko byari biteganyijwe"}},
+      {"value": "as_planned", "label": {"en": "As planned", "fr": "Comme prévu", "rw": "Nk'uko byari biteganyijwe"}},
+      {"value": "harder", "label": {"en": "Harder than planned", "fr": "Plus difficile que prévu", "rw": "Bikomeye kuruta uko byari biteganyijwe"}},
+      {"value": "did_not_do", "label": {"en": "I did not do it", "fr": "Je ne l'ai pas fait", "rw": "Sinabikoze"}}
+    ],
+    "urgent_values": [],
+    "source": "Daily_CheckIn_Questions draft in the team tracker. Answer options added by the developer: Erica to confirm. French and Kinyarwanda are AI drafts awaiting a native reviewer."
+  },
+  {
+    "code": "new-joint-pain",
+    "order": 4,
+    "answer_type": "yes_no",
+    "prompt": {
+      "en": "Do you have any new joint pain or stiffness?",
+      "fr": "Avez-vous une nouvelle douleur ou raideur dans les articulations ?",
+      "rw": "Hari ububabare bushya cyangwa gukomera mu ngingo ufite?"
+    },
+    "choices": [],
+    "urgent_values": [],
+    "source": "Daily_CheckIn_Questions draft in the team tracker. French and Kinyarwanda are AI drafts awaiting a native reviewer."
+  }
+]

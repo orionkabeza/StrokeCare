@@ -1,0 +1,44 @@
+# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Two required checks on every pull request: backend and frontend.
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_USER: strokecare, POSTGRES_PASSWORD: strokecare, POSTGRES_DB: strokecare }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U strokecare" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://strokecare:strokecare@localhost:5432/strokecare
+    defaults: { run: { working-directory: backend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13", cache: pip, cache-dependency-path: backend/requirements-dev.txt }
+      - run: pip install -r requirements-dev.txt
+      - name: Migrations are committed
+        run: python manage.py makemigrations --check --dry-run
+        env: { DJANGO_SECRET_KEY: ci, DJANGO_DEBUG: "1" }
+      - name: Tests (they fail if zero tests run)
+        run: pytest -p no:warnings
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      # No packages to install and no build: the app is plain files in frontend/site.
+      - name: Tests (translations complete in all three languages, API client, offline queue, saved-copy privacy)
+        working-directory: frontend
+        run: npm test
+      - name: The service worker's offline file list is up to date
+        run: python tools/make_precache.py --check

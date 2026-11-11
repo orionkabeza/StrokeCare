@@ -1,0 +1,42 @@
+// Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+// Opens StrokeCare in GitHub Codespaces (or any dev-container tool): Python 3.13, Node 22 (only used to run the
+// frontend tests) and PostgreSQL 16, then installs the backend, loads fictional demo data and starts the server on
+// port 8000. The web app is plain files, so there is nothing to build.
+// This file may contain comments (dev container files are JSONC).
+{
+  "name": "StrokeCare",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "shutdownAction": "stopCompose",
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "22" }
+  },
+
+  // Demo settings only. Never use these values anywhere with real people's data.
+  "containerEnv": {
+    "DJANGO_DEBUG": "1",
+    "DJANGO_SECRET_KEY": "dev-only-not-a-secret",
+    // Codespaces serves the app under https://<name>-8000.app.github.dev, so that host must be allowed.
+    "DJANGO_ALLOWED_HOSTS": "localhost,127.0.0.1,.app.github.dev",
+    "CSRF_TRUSTED_ORIGINS": "https://*.app.github.dev",
+    "DATABASE_URL": "postgres://strokecare:strokecare@db:5432/strokecare",
+    "DATABASE_SSL_REQUIRE": "0",
+    "ALLOW_DEMO_DATA": "1"
+  },
+
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": { "label": "StrokeCare (app and API)", "onAutoForward": "openPreview" }
+  },
+
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/start.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "esbenp.prettier-vscode"]
+    }
+  }
+}
