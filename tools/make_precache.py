@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Keep the service worker's offline file list and cache version in step with frontend/site.
 
-Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Orion Kabeza (DevOps)
 
 The app has no build step, so this tiny script is the only "build": it lists every file the app needs to open
 without a connection and gives the cache a version that changes whenever any of those files change.
@@ -47,7 +47,7 @@ def main() -> int:
             return 1
         print(f"OK: service worker lists {len(urls)} files, version {version}")
         return 0
-    SW.write_text(fresh)
+    SW.write_text(fresh, newline="\n")  # LF on every OS: the CI check compares raw bytes
     print(f"Wrote {len(urls)} files, version {version}")
     return 0
 

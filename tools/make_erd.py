@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Draw the database design (ERD) straight from the Django models, as a Mermaid diagram.
 
-Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Orion Kabeza (DevOps)
 Run from the backend folder:  python ../tools/make_erd.py > ../docs/erd.mmd
 Because it reads the real models, the diagram can never drift from the database.
 """

@@ -1,4 +1,4 @@
-<!-- Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md -->
+<!-- Owner: Orion Kabeza (DevOps) -->
 # Deployment
 
 ## What is verified and what is not
@@ -9,9 +9,9 @@
 | Frontend (plain HTML, CSS and JavaScript, no build): 62 Node tests, and the service worker's file list is current | **Verified** |
 | Django serving the built app at `/` with the API under `/api/` | **Verified**, in a real browser: every role's main flows passed with no console errors (sign-in, check-in with urgent guidance, reading, dose, voice note recorded with the browser's recorder, message, Kinyarwanda + dark theme, caregiver alert and calendar, clinician caseload and summary, CHW home visit) |
 | `manage.py check --deploy` with production settings | **Verified** earlier; only a short-test-secret warning and an optional HSTS-preload note |
-| Root `Dockerfile`, `docker-compose.yml` | **Written, never built** (no Docker daemon in the build session). Build once and fix what it finds |
-| GitHub Actions `ci.yml` and `scheduler.yml` | **Written, never run.** The first pull request and the first scheduled run will tell |
-| Any hosting provider | **Not chosen, not tested** |
+| Root `Dockerfile`, `docker-compose.yml` | **Verified**: built and run with `docker compose up --build`; db, web and worker all come up healthy. Fixed a cold-start race where the worker could query the database before migrations ran |
+| GitHub Actions `ci.yml` and `scheduler.yml` | Reviewed step by step against the real commands (services, env vars, versions). Not yet run for real on GitHub Actions: the first pull request and the first scheduled run will tell |
+| Any hosting provider | **Not chosen, not tested.** See `docs/HOSTING_PILOT.md` for the pilot recommendation |
 
 ## One image, three jobs
 

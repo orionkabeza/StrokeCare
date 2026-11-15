@@ -150,3 +150,18 @@ class AccessibilityPreference(models.Model):
     one_handed_layout = models.BooleanField(default=False, help_text="Controls sit within thumb reach.")
     low_data_mode = models.BooleanField(default=False, help_text="Text only; no video or large images.")
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class PersonalEmergencyContact(models.Model):
+    """Someone the person wants to call in an emergency, usually a relative. Entered by the person themselves and
+    shown only to them, below the verified emergency services, which always come first."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="emergency_contacts")
+    name = models.CharField(max_length=80)
+    relation = models.CharField(max_length=40, blank=True, help_text='In their own words, e.g. "My daughter".')
+    phone = models.CharField(max_length=24)
+    created_at = models.DateTimeField(default=now, editable=False)
+
+    class Meta:
+        ordering = ["created_at"]

@@ -27,8 +27,26 @@ function questionInput(q, answer) {
     <textarea class="sc-input" data-q="${q.code}" data-text>${answer && !answer.skipped ? (answer.value ?? '') : ''}</textarea></label>`
 }
 
+/** Optional, after an answer that asks for it (a Yes to new symptoms): tick what applies, or say it in your own
+ *  words. It sits under the emergency guidance and never holds it back; ticking nothing is fine. */
+function followUp(q, detail) {
+  const chosen = detail?.choices ?? []
+  return html`<fieldset class="stack" style="border: 0; padding: 0; margin: 0">
+    <legend class="small" style="font-weight: 700; margin-bottom: 0.5rem">${t('checkin.whichSymptoms')}</legend>
+    <div class="row" style="gap: 0.5rem">
+      ${q.follow_up.map((c) => {
+        const on = chosen.includes(c.value)
+        return html`<button type="button" class="sc-chip" style="border-radius: 1rem; white-space: normal; text-align: left; min-height: 2.75rem; padding: 0.5rem 0.9rem"
+          data-act="symptom" data-q="${q.code}" data-v="${c.value}" aria-pressed="${on ? 'true' : 'false'}">${on ? icon('check', 18, 'bold') : ''}${c.label}</button>`
+      })}
+    </div>
+    <label class="field">${t('checkin.otherSymptom')}
+      <textarea class="sc-input" data-q="${q.code}" data-other maxlength="500" style="min-height: 4.5rem">${detail?.other ?? ''}</textarea></label>
+  </fieldset>`
+}
+
 const urgentBanner = () => html`<section role="alert" class="sc-card banner-urgent pad stack sc-sheet">
-  <p class="row" style="flex-wrap: nowrap; align-items: flex-start; font-weight: 700; font-size: 1.1rem">${icon('siren', 30, 'duotone')}${t('emergency.message')}</p>
+  <p class="row" style="flex-wrap: nowrap; align-items: flex-start; font-weight: 700; font-size: 1.1rem">${icon('phone-call', 30, 'fill')}${t('emergency.message')}</p>
   <a href="/emergency" class="sc-btn sc-btn-danger">${t('emergency.open')}</a>
 </section>`
 
@@ -37,6 +55,7 @@ export default async function checkIn(ctx) {
   const s = { questions: [], step: 0, answers: {}, guidance: null, finished: false, error: '' }
   const stepByStep = () => !!ctx.prefs.values.one_question_at_a_time
   const isUrgent = (q) => !!q && !!q.urgent_values?.includes(s.answers[q.code]?.value)
+  const wantsDetail = (q) => !!q?.follow_up?.length && !!q.follow_up_when?.includes(s.answers[q.code]?.value) && !s.answers[q.code]?.skipped
   const anyUrgent = () => s.questions.some(isUrgent)
 
   const header = html`${pageHeader({ title: t('checkin.title'), subtitle: isSelf ? t('checkin.lead') : t('checkin.leadOther'), back: true })}`
@@ -52,6 +71,7 @@ export default async function checkIn(ctx) {
         ${readAloud(q.prompt)}
         ${questionInput(q, s.answers[q.code])}
         ${isUrgent(q) ? urgentBanner() : ''}
+        ${wantsDetail(q) ? followUp(q, s.answers[q.code].detail) : ''}
         ${!s.answers[q.code]?.skipped ? skipLink(q, 'background: transparent; color: var(--ink-2); text-decoration: underline; min-height: 2.5rem') : ''}
       </section>`,
     )}
@@ -71,6 +91,7 @@ export default async function checkIn(ctx) {
         ${readAloud(q.prompt)}
         ${questionInput(q, s.answers[q.code])}
         ${isUrgent(q) ? urgentBanner() : ''}
+        ${wantsDetail(q) ? followUp(q, s.answers[q.code].detail) : ''}
         ${skipLink(q)}
       </div>
       <div class="grid-2 thumb-actions">
@@ -105,7 +126,13 @@ export default async function checkIn(ctx) {
   async function submit() {
     s.error = ''
     // Anything the person left empty is sent as skipped. Nothing is ever answered for them.
-    const body = { answers: s.questions.map((q) => ({ question: q.code, ...(s.answers[q.code] ?? { value: null, skipped: true }) })) }
+    const body = {
+      answers: s.questions.map((q) => {
+        const a = s.answers[q.code] ?? { value: null, skipped: true }
+        const d = wantsDetail(q) ? a.detail : null
+        return { question: q.code, value: a.value, skipped: a.skipped, ...(d && (d.choices.length || d.other.trim()) ? { detail: d } : {}) }
+      }),
+    }
     try {
       const r = await ctx.api.post(`${base}/checkins/`, body, { queueable: true })
       s.guidance = r?.emergency_guidance ?? null
@@ -127,8 +154,19 @@ export default async function checkIn(ctx) {
   redraw()
 
   ctx.on('click', '[data-act="answer"]', (el) => {
-    s.answers[el.dataset.q] = { value: JSON.parse(el.dataset.v), skipped: false }
+    const before = s.answers[el.dataset.q]
+    const value = JSON.parse(el.dataset.v)
+    s.answers[el.dataset.q] = { value, skipped: false, detail: before?.value === value ? before.detail : { choices: [], other: '' } }
     redraw()
+  })
+  ctx.on('click', '[data-act="symptom"]', (el) => {
+    const d = s.answers[el.dataset.q].detail
+    d.choices = d.choices.includes(el.dataset.v) ? d.choices.filter((v) => v !== el.dataset.v) : [...d.choices, el.dataset.v]
+    redraw()
+    ctx.el.querySelector(`[data-act="symptom"][data-v="${el.dataset.v}"]`)?.focus()
+  })
+  ctx.on('input', 'textarea[data-other]', (el) => {
+    s.answers[el.dataset.q].detail.other = el.value
   })
   ctx.on('input', 'textarea[data-text]', (el) => {
     s.answers[el.dataset.q] = { value: el.value, skipped: false }

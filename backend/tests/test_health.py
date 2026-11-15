@@ -198,12 +198,38 @@ def test_no_guidance_when_no_urgent_answer(world):
 
 
 @pytest.mark.django_db
+def test_a_yes_to_new_symptoms_can_say_which_and_still_shows_guidance(world):
+    q = next(q for q in client_for(world.survivor).get("/api/v1/checkin-questions/").json()["results"] if q["code"] == "new-or-worse-symptoms")
+    assert q["follow_up_when"] == [True] and {"face", "arm-leg", "speech"} <= {c["value"] for c in q["follow_up"]}
+    c = client_for(world.survivor)
+    detail = {"choices": ["speech", "vision"], "other": "  My left hand feels heavy  "}
+    r = c.post(f"{ME}/checkins/", {"answers": [{"question": "new-or-worse-symptoms", "value": True, "detail": detail}]}, format="json")
+    assert r.status_code == 201 and r.json()["emergency_guidance"] is not None
+    saved = c.get(f"{ME}/checkins/").json()["results"][0]["answers"][0]["detail"]
+    assert saved == {"choices": ["speech", "vision"], "other": "My left hand feels heavy"}
+    summary = client_for(world.clinician).get(f"/api/v1/patients/{world.survivor.id}/summary/").json()
+    row = next(r for r in summary["daily_check_ins"]["by_question"] if r["question"] == "new-or-worse-symptoms")
+    assert row["follow_up_counts"] == {"Slurred or muddled speech, or trouble understanding": 1, "Trouble seeing, or double vision": 1}
+    assert any(n["text"] == "My left hand feels heavy" for n in summary["notes_in_their_own_words"])
+
+
+@pytest.mark.django_db
+def test_symptom_details_only_fit_a_yes_and_only_listed_symptoms(world):
+    c = client_for(world.survivor)
+    post = lambda value, detail: c.post(f"{ME}/checkins/", {"answers": [{"question": "new-or-worse-symptoms", "value": value, "detail": detail}]}, format="json")
+    assert post(False, {"choices": ["speech"]}).status_code == 400
+    assert post(True, {"choices": ["not-a-symptom"]}).status_code == 400
+    assert post(True, {"choices": ["speech", "speech"]}).status_code == 400
+    assert post(True, {"choices": [], "other": ""}).status_code == 201  # ticking nothing is fine: the Yes is what matters
+
+
+@pytest.mark.django_db
 def test_every_question_can_be_skipped_and_a_second_submit_replaces_the_first(world):
     c = client_for(world.survivor)
     c.post(f"{ME}/checkins/", {"answers": [{"question": "new-joint-pain", "skipped": True}]}, format="json")
     c.post(f"{ME}/checkins/", {"answers": [{"question": "new-joint-pain", "value": True}]}, format="json")
     rows = c.get(f"{ME}/checkins/").json()["results"]
-    assert len(rows) == 1 and rows[0]["answers"] == [{"question": "new-joint-pain", "value": True, "skipped": False}]
+    assert len(rows) == 1 and rows[0]["answers"] == [{"question": "new-joint-pain", "value": True, "skipped": False, "detail": None}]
 
 
 @pytest.mark.django_db

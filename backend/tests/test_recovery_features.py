@@ -221,6 +221,64 @@ def test_caregiver_without_the_summary_scope_cannot_see_progress(world):
     assert client_for(world.caregiver).get(f"{theirs(world)}/progress/").status_code == 403
 
 
+# --- Week cards -------------------------------------------------------------------------------------------
+
+
+@pytest.mark.django_db
+def test_week_returns_seven_days_of_raw_facts_per_metric(world):
+    today = local_today(world.survivor)
+    plan = RecoveryPlan.objects.create(patient=world.survivor, created_by=world.clinician)
+    t1 = PlanTask.objects.create(plan=plan, title="One")
+    PlanTask.objects.create(plan=plan, title="Two")
+    med = Medication.objects.create(patient=world.survivor, name="Demo", times=[time(8), time(20)], start_date=today)
+    c = client_for(world.survivor)
+    c.post(f"{ME}/plan/tasks/{t1.id}/log/", {}, format="json")
+    c.post(f"{ME}/medications/{med.id}/doses/", {"time": "08:00"}, format="json")
+    c.post(f"{ME}/readings/", {"systolic": 128, "diastolic": 80, "pulse": 72}, format="json")
+    c.post(f"{ME}/checkins/", {"answers": [{"question": "new-joint-pain", "value": False}]}, format="json")
+    c.post(f"{ME}/mobility/", {"kind": "walking", "minutes": 20}, format="json")
+    data = c.get(f"{ME}/week/").json()
+    assert len(data["dates"]) == 7 and data["dates"][-1] == str(today)
+    assert data["readings"][-1] | {"taken_at": None} == {
+        "taken_at": None, "date": str(today), "systolic": 128, "diastolic": 80, "pulse": 72,
+    }  # fmt: skip
+    assert data["doses"][-1]["slots"] == [{"due": 1, "taken": 1}, {"due": 0, "taken": 0}, {"due": 1, "taken": 0}]
+    assert data["doses"][0]["slots"][0]["due"] == 0  # not started yet: nothing scheduled, so no dot at all
+    assert data["checkins"][-1] == {"date": str(today), "sent": True}
+    assert data["tasks"][-1] == {"date": str(today), "done": 1, "in_plan": 2} and data["tasks"][0]["in_plan"] == 0
+    assert data["mobility"][-1]["minutes"] == 20 and data["mobility"][0]["minutes"] is None  # blank, not zero
+
+
+@pytest.mark.django_db
+def test_week_has_no_judgement_words_and_keeps_its_shape_for_extreme_readings(world):
+    from tests.test_safety import judgement_words, keys
+
+    c = client_for(world.survivor)
+    shapes = []
+    for s, d in ((250, 150), (70, 40)):
+        c.post(f"{ME}/readings/", {"systolic": s, "diastolic": d}, format="json")
+        data = c.get(f"{ME}/week/").json()
+        shapes.append(sorted(set(keys(data))))
+        assert judgement_words(set(keys(data))) == set()
+    assert shapes[0] == shapes[1]
+
+
+@pytest.mark.django_db
+def test_week_shows_a_caregiver_only_the_metrics_they_were_given(world):
+    world.caregiver_link.scopes = sorted(set(sc.CAREGIVER_ALLOWED) - {sc.VIEW_READINGS, sc.VIEW_MEDS})
+    world.caregiver_link.save()
+    data = client_for(world.caregiver).get(f"{theirs(world)}/week/").json()
+    assert "readings" not in data and "doses" not in data
+    assert {"checkins", "tasks", "mobility"} <= set(data)
+
+
+@pytest.mark.django_db
+def test_week_needs_the_summary_scope(world):
+    world.caregiver_link.scopes = sorted(set(sc.CAREGIVER_ALLOWED) - {sc.VIEW_SUMMARY})
+    world.caregiver_link.save()
+    assert client_for(world.caregiver).get(f"{theirs(world)}/week/").status_code == 403
+
+
 # --- Appointments and reminders ---------------------------------------------------------------------------
 
 

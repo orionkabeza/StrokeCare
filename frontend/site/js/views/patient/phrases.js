@@ -2,6 +2,7 @@
 // Personal talk-board phrases: the words this person needs most, added by them or by family, in any language.
 // They appear first on the talk board. These are the person's own words, not medical advice.
 import { errorText } from '../../api.js'
+import { handleVoiceNotes, mountRecorder, recorderSlot, voiceNotes } from '../../components/voice.js'
 import { html } from '../../dom.js'
 import { t } from '../../i18n.js'
 import { emptyState, icon, pageHeader, toast } from '../../ui.js'
@@ -11,7 +12,7 @@ const ICON_NAMES = ['chat-circle', 'drop', 'fork-knife', 'toilet', 'bed', 'hand-
 
 export default async function phrases(ctx) {
   const { base, isSelf } = ctx
-  const s = { list: null, icon: 'chat-circle' }
+  const s = { list: null, icon: 'chat-circle', voice: [], urls: {} }
   const view = () => html`<main class="page">
     ${pageHeader({ title: isSelf ? t('phrases.title') : t('phrases.titleOther'), subtitle: t('phrases.lead'), back: true })}
     <form class="sc-card pad stack" data-form="phrase">
@@ -32,14 +33,28 @@ export default async function phrases(ctx) {
         <button class="icon-btn" data-act="delete" data-id="${p.id}" aria-label="${t('common.delete')}">${icon('trash', 18)}</button>
       </div>`,
     )}
+
+    <h2>${t('phrases.practice')}</h2>
+    <p class="small muted">${t('phrases.practiceLead')}</p>
+    ${recorderSlot()}
+    ${s.voice.length ? voiceNotes(s.voice, s.urls, true) : emptyState(t('phrases.practiceEmpty'))}
   </main>`
   const redraw = () => ctx.draw(view())
   const load = async () => {
     s.list = (await ctx.api.get(`${base}/phrases/`)).results ?? []
     redraw()
   }
+  // Practice recordings are voice notes made from the talk board, filtered to context "general" so they never
+  // mix with the separate voice notes recorded for the next clinic visit (context "visit").
+  const loadVoice = async () => {
+    const results = (await ctx.api.get(`${base}/voice-notes/`)).results ?? []
+    s.voice = results.filter((n) => n.context === 'general')
+    redraw()
+  }
+  ctx.afterDraw(() => mountRecorder(ctx.el, { base, context: 'general', onSaved: loadVoice }))
   redraw()
-  load().catch(() => redraw())
+  Promise.allSettled([load(), loadVoice()]).then(() => redraw())
+  handleVoiceNotes(ctx, { base, urls: s.urls, redraw, reload: loadVoice })
 
   ctx.on('click', '[data-act="icon"]', (el) => ((s.icon = el.dataset.value), redraw()))
   ctx.on('submit', 'form[data-form="phrase"]', async (form, event) => {

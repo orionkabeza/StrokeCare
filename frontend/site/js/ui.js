@@ -1,5 +1,5 @@
 // Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
-// Small pieces every screen uses: icons, the page header, empty and draft notices, the progress ring, a bar chart,
+// Small pieces every screen uses: icons, the page header, empty and draft notices, the progress ring,
 // toasts and date helpers. Each returns markup built with html``, so anything passed in is escaped.
 import { ICONS } from './icons.js'
 import { html, raw } from './dom.js'
@@ -14,17 +14,40 @@ export function icon(name, size = 24, weight = 'regular') {
   )
 }
 
-/** Title, optional subtitle and back button at the top of a screen. */
+/** Title, optional subtitle and back button at the top of a screen. The back button stays top-left and the
+ *  title is centred beside it. A screen that needs variable-width `extra` content (summary.js's day-range
+ *  chips) keeps the earlier left-flowing layout instead, since that content does not fit a fixed column. */
 export function pageHeader({ title, subtitle, back = false, extra = '' }) {
-  return html`<div class="row sc-rise" style="align-items: flex-start; flex-wrap: nowrap">
-    ${back ? html`<button class="icon-btn" data-act="back" aria-label="${t('common.back')}">${icon('caret-left', 22)}</button>` : ''}
-    <div class="stack-s" style="min-width: 0"><h1>${title}</h1>${subtitle ? html`<p class="muted">${subtitle}</p>` : ''}</div>
-    ${extra}
+  if (extra) {
+    return html`<div class="stack sc-rise">
+      <div class="row" style="align-items: flex-start; flex-wrap: nowrap">
+        ${back ? html`<button class="icon-btn" data-act="back" aria-label="${t('common.back')}">${icon('caret-left', 22)}</button>` : ''}
+        <div class="stack-s" style="min-width: 0; overflow-wrap: anywhere"><h1>${title}</h1>${subtitle ? html`<p class="muted">${subtitle}</p>` : ''}</div>
+      </div>
+      ${extra}
+    </div>`
+  }
+  return html`<div class="page-header sc-rise">
+    ${back ? html`<button class="icon-btn" data-act="back" aria-label="${t('common.back')}">${icon('caret-left', 22)}</button>` : html`<span aria-hidden="true"></span>`}
+    <div class="stack-s" style="min-width: 0; text-align: center"><h1>${title}</h1>${subtitle ? html`<p class="muted">${subtitle}</p>` : ''}</div>
+    <span aria-hidden="true"></span>
   </div>`
 }
 
-export const emptyState = (text) =>
-  html`<p class="sc-card pad muted" style="text-align: center; box-shadow: none; border-style: dashed">${text}</p>`
+export const emptyState = (text) => html`<p class="sc-card pad muted" style="text-align: center">${text}</p>`
+
+/** Pause the hero illustration's idle float while it's off-screen. Call once after the first draw on any
+ *  screen that uses .hero-illustration. */
+export function pauseHeroOffscreen(ctx) {
+  if (typeof IntersectionObserver === 'undefined') return
+  const el = ctx.el.querySelector('.hero-illustration')
+  if (!el) return
+  const io = new IntersectionObserver(([entry]) => {
+    el.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'
+  })
+  io.observe(el)
+  ctx.onLeave(() => io.disconnect())
+}
 
 /** Safety rule: draft content always says so, and names its source when it has one. */
 export function draftNote({ source = '', status = '' } = {}) {
@@ -39,53 +62,30 @@ export function progressRing(done, total) {
   const offset = total ? C * (1 - done / total) : C
   return html`<div style="position: relative; width: 6rem; height: 6rem; flex-shrink: 0">
     <svg viewBox="0 0 96 96" width="100%" height="100%" aria-hidden="true">
-      <circle cx="48" cy="48" r="42" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="8" />
-      <circle class="sc-ring" cx="48" cy="48" r="42" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"
+      <circle cx="48" cy="48" r="42" fill="none" stroke="var(--line-strong)" stroke-width="8" />
+      <circle class="sc-ring" cx="48" cy="48" r="42" fill="none" stroke="var(--primary)" stroke-width="8" stroke-linecap="round"
         stroke-dasharray="${C}" style="stroke-dashoffset: ${offset}; transition: stroke-dashoffset .6s cubic-bezier(.2,.7,.2,1)"
         transform="rotate(-90 48 48)" />
     </svg>
-    <span style="position: absolute; inset: 0; display: grid; place-items: center; font-weight: 800; font-size: 1.5rem; white-space: nowrap">
-      ${done}<small style="font-size: 0.9rem; opacity: 0.85">/${total}</small>
+    <span style="position: absolute; inset: 0; display: grid; place-items: center; font-weight: 600; font-size: 1.5rem; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--ink)">
+      ${done}<small style="font-size: 0.9rem; color: var(--ink-2)">/${total}</small>
     </span>
   </div>`
 }
 
-/** Plain bars, one per day, one colour. Safety rule: counts only. No target line, no colour that means good or bad,
- *  and an empty day is just an empty bar. The same numbers are always available as a table next to it. */
-export function barChart(days, label) {
-  const W = 340 // about the width of a phone screen, so the labels stay readable instead of shrinking
-  const H = 150
-  const pad = { top: 12, right: 8, bottom: 26, left: 30 }
-  const max = Math.max(1, ...days.map((d) => d.value))
-  const step = (W - pad.left - pad.right) / Math.max(1, days.length)
-  const every = Math.ceil(days.length / 6)
-  const dayLabel = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString(locale.value, { day: 'numeric', month: 'numeric' })
-  const bars = days.map((d, i) => {
-    const h = (d.value / max) * (H - pad.top - pad.bottom)
-    const x = pad.left + i * step + step * 0.18
-    const w = step * 0.64
-    return html`<g>
-      <rect x="${x}" y="${d.value ? H - pad.bottom - h : H - pad.bottom - 1.5}" width="${w}" height="${d.value ? h : 1.5}" rx="3" fill="var(--primary)" opacity="${d.value ? 1 : 0.35}" />
-      ${i % every === 0 ? html`<text x="${x + w / 2}" y="${H - 8}" text-anchor="middle" font-size="11" fill="var(--ink-2)">${dayLabel(d.date)}</text>` : ''}
-    </g>`
-  })
-  return html`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${label}" style="width: 100%; height: auto; display: block">
-    <line x1="${pad.left}" x2="${W - pad.right}" y1="${H - pad.bottom}" y2="${H - pad.bottom}" stroke="var(--line-strong)" />
-    <text x="${pad.left - 6}" y="${pad.top + 4}" text-anchor="end" font-size="11" fill="var(--ink-2)">${max}</text>
-    <text x="${pad.left - 6}" y="${H - pad.bottom}" text-anchor="end" font-size="11" fill="var(--ink-2)">0</text>
-    ${bars}
-  </svg>`
-}
-
-/** A short message at the bottom of the screen. */
+/** A short message at the bottom of the screen. Fixed-time enter/exit (not animationend) so it still
+ *  disappears on schedule when reduced motion turns the animation itself off. */
 export function toast(text, ms = 3500) {
   const host = document.querySelector('.toasts')
   if (!host) return
   const el = document.createElement('p')
-  el.className = 'toast'
+  el.className = 'toast sc-toast-in'
   el.textContent = text
   host.append(el)
-  setTimeout(() => el.remove(), ms)
+  setTimeout(() => {
+    el.classList.replace('sc-toast-in', 'sc-toast-out')
+    setTimeout(() => el.remove(), 180)
+  }, ms)
 }
 
 /** Key under roles.by.* for "who entered this", from the viewer's side: "you" on your own record, "the patient"
@@ -125,10 +125,10 @@ export function bpChart(readings) {
   const dayLabel = (ms) => new Date(ms).toLocaleDateString(locale.value, { weekday: 'short', day: 'numeric' })
   const dots = (key, color) => rows.map((r, i) => html`<circle cx="${X(times[i])}" cy="${Y(r[key])}" r="3.5" fill="${color}" />`)
   return html`<figure style="margin: 0; overflow: hidden">
-    <svg viewBox="0 0 ${W} ${H}" aria-hidden="true" style="width: 100%; height: auto; display: block">
+    <svg viewBox="0 0 ${W} ${H}" aria-hidden="true" style="width: 100%; height: auto; display: block; font-family: var(--font); font-variant-numeric: tabular-nums">
       ${gridValues.map((v) => html`<g><line x1="${pad.left}" x2="${W - pad.right}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)" />
         <text x="${pad.left - 6}" y="${Y(v) + 4}" text-anchor="end" font-size="11" fill="var(--ink-3)">${v}</text></g>`)}
-      ${ticks.map((ms) => html`<text x="${X(ms)}" y="${H - 8}" text-anchor="middle" font-size="11" fill="var(--ink-3)">${dayLabel(ms)}</text>`)}
+      ${ticks.map((ms, i) => html`<text x="${X(ms)}" y="${H - 8}" text-anchor="${i === 0 ? 'start' : i === ticks.length - 1 ? 'end' : 'middle'}" font-size="11" fill="var(--ink-3)">${dayLabel(ms)}</text>`)}
       <path d="${line('systolic')}" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />
       <path d="${line('diastolic')}" fill="none" stroke="var(--accent-ink)" stroke-width="3" stroke-dasharray="6 5" stroke-linejoin="round" stroke-linecap="round" />
       ${dots('systolic', 'var(--primary)')}${dots('diastolic', 'var(--accent-ink)')}

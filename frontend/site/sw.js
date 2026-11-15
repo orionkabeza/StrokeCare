@@ -6,13 +6,15 @@
 //
 // The list below is generated: run `python tools/make_precache.py` after changing any file under frontend/site.
 // BEGIN PRECACHE
-const VERSION = 'b6920215945e'
+const VERSION = 'd07fcf821729'
 const PRECACHE = [
   '/',
   '/css/app.css',
   '/css/tokens.css',
   '/icon.svg',
+  '/img/hero-heart.svg',
   '/js/api.js',
+  '/js/components/metric-card.js',
   '/js/components/voice.js',
   '/js/copy.js',
   '/js/dom.js',
@@ -25,6 +27,7 @@ const PRECACHE = [
   '/js/speech.js',
   '/js/state.js',
   '/js/store.js',
+  '/js/theme-init.js',
   '/js/ui.js',
   '/js/views/auth/consent.js',
   '/js/views/auth/login.js',

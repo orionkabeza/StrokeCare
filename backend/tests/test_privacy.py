@@ -95,3 +95,33 @@ def test_api_responses_are_never_cached(world):
 def test_errors_use_one_plain_shape(world):
     r = client_for(world.survivor).get(f"/api/v1/patients/{world.other_survivor.id}/readings/")
     assert r.status_code == 404 and set(r.json()) == {"error"} and {"code", "message"} <= set(r.json()["error"])
+
+
+# --- Personal emergency contacts ----------------------------------------------------------------------------
+
+
+@pytest.mark.django_db
+def test_personal_emergency_contacts_belong_to_their_owner_only(world):
+    mine = client_for(world.survivor)
+    r = mine.post("/api/v1/me/emergency-contacts/", {"name": "Aline", "relation": "My daughter", "phone": "+250 788 000 000"}, format="json")
+    assert r.status_code == 201
+    contact_id = r.json()["id"]
+    assert [c["name"] for c in mine.get("/api/v1/me/emergency-contacts/").json()["results"]] == ["Aline"]
+    theirs = client_for(world.caregiver)
+    assert theirs.get("/api/v1/me/emergency-contacts/").json()["results"] == []
+    assert theirs.delete(f"/api/v1/me/emergency-contacts/{contact_id}/").status_code == 404
+    assert "Aline" in mine.get("/api/v1/me/export/").content.decode()
+    assert mine.delete(f"/api/v1/me/emergency-contacts/{contact_id}/").status_code == 204
+
+
+@pytest.mark.django_db
+def test_personal_emergency_contacts_check_the_number_and_the_limit(world):
+    c = client_for(world.survivor)
+    for bad in ("", "call me", "12345678901234567890123456"):
+        assert c.post("/api/v1/me/emergency-contacts/", {"name": "X", "phone": bad}, format="json").status_code == 400
+    assert c.post("/api/v1/me/emergency-contacts/", {"name": " ", "phone": "0788"}, format="json").status_code == 400
+    for i in range(10):
+        assert c.post("/api/v1/me/emergency-contacts/", {"name": f"P{i}", "phone": "0788 000 000"}, format="json").status_code == 201
+    assert c.post("/api/v1/me/emergency-contacts/", {"name": "Eleven", "phone": "0788"}, format="json").status_code == 400
+    assert client_for().get("/api/v1/me/emergency-contacts/").status_code == 401
+

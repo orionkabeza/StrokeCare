@@ -13,4 +13,6 @@ urlpatterns = [
     path("me/consents/", views.ConsentView.as_view()),
     path("me/accessibility/", views.AccessibilityView.as_view()),
     path("me/export/", views.ExportView.as_view()),
+    path("me/emergency-contacts/", views.EmergencyContactsView.as_view()),
+    path("me/emergency-contacts/<uuid:contact_id>/", views.EmergencyContactDetailView.as_view()),
 ]

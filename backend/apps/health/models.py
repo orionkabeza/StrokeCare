@@ -112,6 +112,11 @@ class CheckInQuestion(models.Model):
     urgent_values = models.JSONField(
         default=list, blank=True, help_text="Answers that must show urgent guidance straight away, e.g. [true]."
     )
+    follow_up = models.JSONField(
+        default=list, blank=True,
+        help_text='Optional things to tick after certain answers: [{"value": "vision", "label": {"en": ".."}}].',
+    )  # fmt: skip
+    follow_up_when = models.JSONField(default=list, blank=True, help_text="The answers that show `follow_up`, e.g. [true].")
     order = models.PositiveSmallIntegerField(default=0)
     is_active = models.BooleanField(default=True)
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.DRAFT)
@@ -151,6 +156,10 @@ class CheckInAnswer(models.Model):
     question = models.ForeignKey(CheckInQuestion, on_delete=models.PROTECT, related_name="answers")
     value = models.JSONField(null=True, blank=True)
     skipped = models.BooleanField(default=False)
+    detail = models.JSONField(
+        null=True, blank=True,
+        help_text='The follow-up ticked, and anything added in their own words: {"choices": [..], "other": ".."}.',
+    )  # fmt: skip
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=["checkin", "question"], name="one_answer_per_question")]

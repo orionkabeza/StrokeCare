@@ -57,7 +57,7 @@ export default async function summary(ctx) {
     return html`<main class="page page-wide">
       ${pageHeader({
         title: s.access?.display_name ?? t('summary.title'), subtitle: d ? `${d.period.from} → ${d.period.to}` : '', back: true,
-        extra: html`<div class="row" style="margin-left: auto">
+        extra: html`<div class="row">
           ${[7, 14, 30].map((n) => html`<button class="sc-chip" data-act="days" data-n="${n}" aria-pressed="${s.days === n ? 'true' : 'false'}">${t('summary.days', { n })}</button>`)}
           <button class="sc-btn sc-btn-ghost" style="min-height: 2.75rem" data-act="print">${icon('printer', 20)}${t('summary.print')}</button>
         </div>`,
@@ -87,7 +87,7 @@ export default async function summary(ctx) {
           </div>`
         : ''}
 
-      <div class="grid-auto" style="grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr))">
+      <div class="grid-auto" style="grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr))">
         <section class="sc-card pad stack-s"><h2>${t('bp.recent')}</h2>${recent().length > 1 ? bpChart(recent()) : html`<p class="muted small">${t('bp.none')}</p>`}</section>
         ${d
           ? html`<section class="sc-card pad stack">
@@ -108,7 +108,7 @@ export default async function summary(ctx) {
           : ''}
       </div>
 
-      <div class="grid-auto" style="grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr))">
+      <div class="grid-auto" style="grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr))">
         <section class="sc-card pad stack">
           <h2>${t('summary.plan')}</h2>
           ${!s.plan?.tasks?.length ? html`<p class="muted small">${t('summary.noPlan')}</p>` : ''}
