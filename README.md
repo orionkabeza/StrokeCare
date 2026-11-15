@@ -5,7 +5,7 @@ Stroke prevention and recovery at home, for Rwanda, in English, Kinyarwanda and 
 For stroke survivors, prevention users, caregivers, clinicians and community health workers.
 **It records and summarises what people enter. It never diagnoses, prescribes, scores risk, or delays emergency care.**
 
-Team 3 · Foundations Project · ALU. Version 2: the first prototype lived in `EricaSheja/stroke_care_development`.
+Team 3 · Foundations Project · ALU. This repository held the team's first prototype; it now holds version 2. The prototype is still in the history.
 
 ## What it does
 
@@ -32,11 +32,21 @@ Team 3 · Foundations Project · ALU. Version 2: the first prototype lived in `E
 
 ## Run it locally
 
+You need Docker Desktop. From the repository root:
+
 ```bash
-docker compose up --build        # PostgreSQL + app + scheduler worker on http://localhost:8000 (not yet run: see docs/DEPLOYMENT.md)
+docker compose up --build -d     # PostgreSQL + app + scheduler worker on http://localhost:8000
+docker compose exec web python manage.py seed_demo --password 'admin@2025!'
+docker compose exec web python manage.py add_emergency_contact --region Rwanda --label "SAMU ambulance"     --kind ambulance --phone 912 --verified-by "Emmanuel Happy Rangira"
 ```
 
-Without installing anything on your computer, use GitHub Codespaces: [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/erangira-005/StrokeCare-app). It builds a cloud workspace with PostgreSQL, loads fictional demo data and starts the app on port 8000. See [`.devcontainer/README.md`](.devcontainer/README.md).
+The first command builds the image, creates the database, runs the migrations and loads the reference content
+(check-in questions, talk board, Learn topics, notes and videos). The second creates the fictional demo accounts
+(`demo-survivor@example.org`, `demo-caregiver@`, `demo-clinician@`, `demo-chw@`, `demo-prevention@`, `demo-admin@`,
+all with the password you give). The third adds the verified emergency number: numbers are never in the code
+(`docs/SAFETY.md`, rule 4). Stop with `docker compose down`; add `-v` to also delete the database.
+
+Without installing anything on your computer, use GitHub Codespaces: [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/EricaSheja/stroke_care_development). It builds a cloud workspace with PostgreSQL, loads fictional demo data and starts the app on port 8000. See [`.devcontainer/README.md`](.devcontainer/README.md).
 
 Quickest way without Docker (one server, app and API together). You need Python 3.13 and a PostgreSQL 16 you can reach. Nothing to build for the web app: it is plain files in `frontend/site`, and Django serves them. Create the database once:
 

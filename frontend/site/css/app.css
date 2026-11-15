@@ -7,9 +7,9 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font); line-
 #app { min-height: 100vh; min-height: 100dvh; }
 a { color: var(--primary-ink); }
 h1, h2, h3 { margin: 0; letter-spacing: -0.01em; }
-h1 { font-size: 1.75rem; font-weight: 800; line-height: 1.2; }
-h2 { font-size: 1.2rem; font-weight: 800; }
-h3 { font-size: 1.05rem; font-weight: 700; }
+h1 { font-size: 1.75rem; font-weight: 600; line-height: 1.2; }
+h2 { font-size: 1.2rem; font-weight: 600; }
+h3 { font-size: 1.05rem; font-weight: 600; }
 p { margin: 0; }
 button { font: inherit; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -22,14 +22,19 @@ button { font: inherit; }
 .row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
 .row-between { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
-.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.9rem; }
+.actions-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+@media (min-width: 48rem) { .actions-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr)); gap: 0.9rem; }
 .muted { color: var(--ink-2); }
 .small { font-size: 0.875rem; }
 .tiny { font-size: 0.8125rem; color: var(--ink-3); }
-.big-number { font-size: 2.1rem; font-weight: 800; line-height: 1.1; }
+.big-number { font-size: 2.1rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .pad { padding: 1rem; }
 .pad-l { padding: 1.25rem; }
 .full { width: 100%; }
+
+/* Detail-screen header: the back button stays top-left, the title is centred beside it, not left-flowing. */
+.page-header { display: grid; grid-template-columns: 2.75rem 1fr 2.75rem; align-items: center; gap: 0.75rem; }
 
 /* Forms */
 .field { display: flex; flex-direction: column; gap: 0.35rem; font-weight: 700; font-size: 0.95rem; }
@@ -41,24 +46,36 @@ select.sc-input { appearance: auto; }
 .check { display: flex; gap: 0.75rem; align-items: flex-start; font-weight: 500; }
 .check input { width: 1.4rem; height: 1.4rem; margin: 0.1rem 0 0; accent-color: var(--primary); flex-shrink: 0; }
 
-/* Top bar and navigation */
+/* Top bar and navigation: transparent over the canvas, with blur so content scrolling underneath stays readable. */
 .topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
-  padding: 0.6rem 1rem; padding-top: max(0.6rem, env(safe-area-inset-top)); background: color-mix(in srgb, var(--bg) 88%, transparent);
+  padding: 0.6rem 1rem; padding-top: max(0.6rem, env(safe-area-inset-top)); background: color-mix(in srgb, var(--bg) 70%, transparent);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+[data-theme="contrast"] .topbar { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg); }
 .brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 800; font-size: 1.1rem; color: var(--ink); text-decoration: none; }
-.brand-mark { width: 2.2rem; height: 2.2rem; border-radius: 0.7rem; display: grid; place-items: center; background: var(--hero); color: #fff; }
-.icon-btn { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: 1rem; border: 1.5px solid var(--line-strong);
-  background: var(--surface); color: var(--primary-ink); cursor: pointer; text-decoration: none; }
-.bottom-nav { position: fixed; inset: auto 0 0 0; z-index: 20; padding-bottom: max(0.75rem, env(safe-area-inset-bottom)); }
+.brand-mark { width: 2.5rem; height: 2.5rem; border-radius: 999px; display: grid; place-items: center; background: #fff;
+  border: 1px solid var(--line); color: var(--accent); }
+[data-theme="dark"] .brand-mark { background: var(--surface-2); }
+/* Circular icon buttons everywhere: the back button, delete, play, and so on. */
+.icon-btn { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; border: 1.5px solid var(--line-strong);
+  background: var(--surface); color: var(--primary-ink); cursor: pointer; text-decoration: none; transition: transform 0.15s ease; }
+.icon-btn:active { transform: scale(0.96); }
+/* #tabbar carries both .sc-tabbar (the pill itself, incl. its own padding) and .bottom-nav (this fixed
+   positioning) on the SAME element - there is no wrapper. So no pointer-events tricks and no padding here
+   (either would land on the pill itself): the gap from the screen edges comes from width, the gap from the
+   bottom from `bottom`, and left/right/margin:auto centres the capped pill. */
+.bottom-nav { position: fixed; left: 0; right: 0; bottom: max(0.75rem, env(safe-area-inset-bottom)); z-index: 20;
+  margin: 0 auto; width: calc(100% - 2rem); }
 .side-nav { display: none; }
 @media (min-width: 62rem) {
   .layout-wide { display: grid; grid-template-columns: 16rem 1fr; }
   .layout-wide .bottom-nav { display: none; }
-  .layout-wide .side-nav { display: flex; flex-direction: column; gap: 0.35rem; position: sticky; top: 0; height: 100vh; padding: 1.25rem 0.9rem; }
+  .layout-wide .side-nav { display: flex; flex-direction: column; gap: 0.35rem; position: sticky; top: 0; height: 100vh;
+    padding: 1.25rem 0.9rem; background: var(--surface); border-right: 1px solid var(--line); }
   .layout-wide .page { padding-bottom: 3rem; }
 }
-.side-link { display: flex; align-items: center; gap: 0.75rem; min-height: 3rem; padding: 0 0.85rem; border-radius: 0.9rem; color: var(--on-hero-2); text-decoration: none; font-weight: 600; }
-.side-link[aria-current="page"] { background: var(--glass); color: var(--on-hero); border: 1px solid var(--glass-line); }
+.side-link { display: flex; align-items: center; gap: 0.75rem; min-height: 3rem; padding: 0 0.85rem 0 0.35rem; border-radius: 999px;
+  color: var(--ink-2); text-decoration: none; font-weight: 600; transition: background-color 0.15s ease, color 0.15s ease; }
+.side-link[aria-current="page"] { color: var(--ink); }
 
 /* One-handed: the page's main actions sit at the bottom, within thumb reach */
 [data-hand="one"] .thumb-actions { position: sticky; bottom: 5.5rem; z-index: 5; background: var(--bg); padding: 0.6rem 0; }
@@ -66,20 +83,40 @@ select.sc-input { appearance: auto; }
 /* Banners */
 .banner { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1rem; border-radius: 0.9rem; background: var(--surface-2); font-size: 0.95rem; }
 .banner-urgent { background: var(--danger-soft); border: 2px solid var(--danger); }
+/* A neutral fact, never a health judgement: offline notices, the alerts disclaimer, plain information.
+   #9A3412 (not --accent-ink) is the spec's chosen text colour for --accent-soft specifically: 6.6:1, not 4.7:1. */
+.sc-banner-info { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1rem; border-radius: 0.9rem;
+  background: var(--accent-soft); color: #9A3412; font-size: 0.95rem; }
+[data-theme="dark"] .sc-banner-info, [data-theme="contrast"] .sc-banner-info { color: var(--accent-ink); }
 .toasts { position: fixed; left: 50%; bottom: 6.5rem; transform: translateX(-50%); z-index: 50; display: flex; flex-direction: column; gap: 0.5rem; width: min(92vw, 28rem); }
 .toast { background: var(--ink); color: var(--bg); padding: 0.85rem 1.1rem; border-radius: 1rem; box-shadow: var(--shadow-2); font-weight: 600; }
 
 /* Lists */
 .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
 .list-row { display: flex; align-items: center; gap: 0.85rem; padding: 0.85rem 1rem; }
-.table-wrap { overflow-x: auto; }
+/* position: relative keeps absolutely placed screen-reader text inside the scroll box instead of widening the page. */
+.table-wrap { position: relative; overflow-x: auto; }
 table.data { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 table.data th, table.data td { text-align: left; padding: 0.8rem 0.9rem; border-bottom: 1px solid var(--line); }
-table.data th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); }
+table.data th { font-size: 0.875rem; font-weight: 600; color: var(--ink-2); }
 
-/* Hero header used on home screens */
-.hero-head { margin: -1rem -1.25rem 0; padding: 1.25rem 1.25rem 1.5rem; border-radius: 0 0 2rem 2rem; display: flex; flex-direction: column; gap: 1rem; }
-.hero-head .muted { color: var(--on-hero-2); }
+/* Hero header on home screens: the two-tone greeting only, no slab. The hero illustration (when present) sits
+   behind and to the right, decorative (alt=""), hidden in the contrast theme and in low-data mode. */
+.hero-head { position: relative; display: flex; flex-direction: column; gap: 0.25rem; padding-top: 0.25rem; min-height: 5rem; }
+.hero-head .muted { color: var(--ink-2); }
+.hero-illustration { position: absolute; top: -0.5rem; right: -0.75rem; width: 9rem; height: auto; z-index: -1;
+  pointer-events: none; animation: hero-float 6s ease-in-out infinite; }
+@keyframes hero-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+[data-theme="contrast"] .hero-illustration, [data-low-data="true"] .hero-illustration { display: none; }
+
+/* A big thin number with its unit on the same baseline, e.g. "128/84 mmHg" or a stat card's "2/3". Tight
+   tracking and tabular figures so the digits that are the whole point of the screen get real care. */
+.display-number { display: flex; align-items: baseline; gap: 0.4rem; font-weight: 300; line-height: 1; color: var(--ink);
+  font-variant-numeric: tabular-nums; letter-spacing: -0.022em; }
+.display-number { font-size: 4rem; }
+@media (max-width: 26rem) { .display-number { font-size: 3rem; letter-spacing: -0.01em; } }
+.unit { font-size: 1.25rem; font-weight: 400; color: var(--ink-2); }
+.card-value { font-size: 2rem; font-weight: 300; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
 
 /* Tick button used for tasks and doses */
 .tick { flex-shrink: 0; width: 3.25rem; height: 3.25rem; border-radius: 50%; border: 2px solid var(--primary); background: transparent;
@@ -107,3 +144,6 @@ svg { flex-shrink: 0; }
 [data-motion="reduce"] .page-enter { animation: none; }
 @media print { .print-only { display: block; } .no-print { display: none; } }
 .print-only { display: none; }
+.progress-table th, .progress-table td { padding: 0.4rem 0.4rem; vertical-align: top; }
+.progress-table thead th { font-weight: 600; color: var(--ink-2); }
+.progress-table tbody th { white-space: nowrap; }

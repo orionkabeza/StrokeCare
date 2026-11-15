@@ -116,7 +116,9 @@
     "thanks": "Thank you. Your check-in is saved.",
     "yourWords": "In your own words",
     "source": "team tracker",
-    "oneScreen": "Answer what you like and skip the rest. Anything left empty is sent as skipped."
+    "oneScreen": "Answer what you like and skip the rest. Anything left empty is sent as skipped.",
+    "whichSymptoms": "Which ones? Tick any that fit (optional)",
+    "otherSymptom": "Something else? Say it in your own words"
   },
   "emergency": {
     "button": "Emergency",
@@ -127,7 +129,16 @@
     "fallback": "If you think you or someone near you may be having a stroke or another emergency, contact your local emergency services now. Do not wait for this app.",
     "numbers": "Emergency numbers",
     "noVerified": "No verified number for your area yet. Call your local emergency services the way you normally would.",
-    "verifiedBy": "Verified by {name}"
+    "verifiedBy": "Verified by {name}",
+    "myPeople": "People to call",
+    "myPeopleHint": "Your own contacts, such as a relative. Call the emergency service first.",
+    "addPerson": "Add someone to call",
+    "name": "Name",
+    "relation": "Who they are (optional)",
+    "relationExample": "For example: my daughter",
+    "phone": "Phone number",
+    "remove": "Remove {name}",
+    "removeConfirm": "Remove {name} from your people to call?"
   },
   "bp": {
     "title": "Blood pressure",
@@ -182,6 +193,7 @@
     "again": "Say again",
     "voiceOn": "Your phone reads the words aloud.",
     "voiceOff": "Your phone has no voice for this language, so the words are shown large instead.",
+    "practiceLead": "Want to try saying it yourself? Record yourself for practice. Only you can hear it.",
     "cat": {
       "needs": "I need",
       "feelings": "I feel",
@@ -195,7 +207,20 @@
     "lead": "Every item shows where it comes from and whether it has been reviewed.",
     "empty": "Nothing here yet.",
     "source": "Source",
-    "fellBack": "Not yet available in your language, so shown in English."
+    "fellBack": "Not yet available in your language, so shown in English.",
+    "topics": "Topics",
+    "allTopics": "All",
+    "moreTopics": "More",
+    "videosCount": "{n} video | {n} videos",
+    "toReadCount": "{n} to read",
+    "video": "Video",
+    "read": "Read",
+    "minutes": "{n} min",
+    "playVideoSize": "Play video ({size})",
+    "needsConnection": "This video needs a connection. The text below still works.",
+    "transcript": "The text below also works as the video's transcript.",
+    "playVideo": "Play video",
+    "fromYoutube": "Plays from {source} on YouTube. Notes on the video are below."
   },
   "visit": {
     "title": "Questions for my visit",
@@ -596,6 +621,9 @@
     "none": "No personal phrases yet.",
     "mine": "Mine",
     "manage": "Add or remove my phrases",
+    "practice": "Practice recordings",
+    "practiceLead": "Record yourself saying a phrase, to practise. Only you can hear these.",
+    "practiceEmpty": "No practice recordings yet.",
     "icons": {
       "chat-circle": "Talk",
       "drop": "Water",
@@ -605,6 +633,33 @@
       "hand-heart": "Help",
       "phone-call": "Call",
       "users-three": "Family"
+    }
+  },
+  "week": {
+    "title": "This week",
+    "today": "Today",
+    "none": "none recorded",
+    "noneThisWeek": "None this week",
+    "latest": "Latest · {when}",
+    "bp": "Blood pressure",
+    "pulse": "Pulse",
+    "move": "Movement",
+    "meds": "Medicine doses",
+    "checkin": "Check-ins",
+    "tasks": "Plan tasks",
+    "min": "min",
+    "day": "day",
+    "days": "days",
+    "dosesToday": "Doses marked today",
+    "checkinsWeek": "Check-ins this week",
+    "tasksToday": "Tasks done today",
+    "aria": {
+      "bp": "{lo} to {hi} mmHg",
+      "pulse": "{list} bpm",
+      "minutes": "{n} minutes",
+      "doses": "{taken} of {due} doses marked",
+      "checkin": "check-in sent",
+      "tasks": "{done} of {n} tasks done"
     }
   }
 }

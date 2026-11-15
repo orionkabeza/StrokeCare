@@ -8,11 +8,11 @@ import { emptyState, icon } from '../../ui.js'
 export default async function chwHome(ctx) {
   let data = null
   const view = () => html`<main class="page">
-    <section class="hero-head sc-hero">
-      <h1 style="font-size: 1.9rem">${t('chw.title')}</h1>
+    <section class="hero-head">
+      <h1 style="font-size: 1.75rem">${t('chw.title')}</h1>
       <p class="muted">${t('chw.lead')}</p>
-      ${pendingCount.value ? html`<button class="sc-btn sc-glass" style="color: var(--on-hero)" data-act="send-now">${icon('cloud-arrow-up', 22)}${t('offline.sendNow', { n: pendingCount.value })}</button>` : ''}
     </section>
+    ${pendingCount.value ? html`<button class="sc-btn sc-btn-ghost" data-act="send-now">${icon('cloud-arrow-up', 22)}${t('offline.sendNow', { n: pendingCount.value })}</button>` : ''}
     ${data && !data.length ? emptyState(t('chw.empty')) : ''}
     ${data && !data.length ? html`<a href="/sharing" class="sc-btn sc-btn-primary">${icon('key', 22)}${t('sharing.enterCode')}</a>` : ''}
     ${(data ?? []).map(

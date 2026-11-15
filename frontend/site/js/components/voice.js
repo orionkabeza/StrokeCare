@@ -29,17 +29,28 @@ export function mountRecorder(root, { base, context, onSaved }) {
   let chunks = []
   let seconds = 0
   let error = ''
+  // Only cross-fade on a real idle<->recording flip, never on the once-a-second timer re-render while recording.
+  let lastRecording = null
 
   const draw = (recording = false) => {
+    const changed = lastRecording !== null && lastRecording !== recording
+    lastRecording = recording
     slot.innerHTML = String(html`<div class="stack-s">
       ${!recording
-        ? html`<button type="button" class="sc-btn sc-btn-ghost" data-start>${icon('microphone', 22, 'duotone')}${t('voice.record')}</button>`
-        : html`<button type="button" class="sc-btn sc-btn-primary" data-stop>${icon('stop', 22, 'fill')}${t('voice.stop')} · ${mmss(seconds)}
+        ? html`<button type="button" class="sc-btn sc-btn-ghost" data-start style="transition: opacity 0.15s ease">${icon('microphone', 22, 'duotone')}${t('voice.record')}</button>`
+        : html`<button type="button" class="sc-btn sc-btn-primary" data-stop style="transition: opacity 0.15s ease">${icon('stop', 22, 'fill')}${t('voice.stop')} · ${mmss(seconds)}
             <span class="sc-wave" aria-hidden="true" style="display: inline-flex; gap: 3px; height: 18px; align-items: center">
               <span style="height: 10px"></span><span style="height: 18px; animation-delay: .1s"></span><span style="height: 12px; animation-delay: .2s"></span>
             </span></button>`}
       ${error ? html`<p class="error" role="alert">${error}</p>` : ''}
     </div>`)
+    if (changed) {
+      const btn = slot.querySelector('button')
+      if (btn) {
+        btn.style.opacity = '0'
+        requestAnimationFrame(() => (btn.style.opacity = '1'))
+      }
+    }
   }
 
   async function upload(stream) {

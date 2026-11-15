@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Split the repository into one folder (and zip) per team member, following OWNERS.json.
 
-Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Orion Kabeza (DevOps)
 
   python tools/make_handoff.py --check    every file has exactly one owner (exit 1 if not)
   python tools/make_handoff.py            writes handoff/<Name>/ and handoff/<Name>.zip

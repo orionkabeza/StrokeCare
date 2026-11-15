@@ -1,0 +1,5 @@
+# Owner: Orion Kabeza (DevOps)
+# Force LF for tracked text files regardless of a contributor's local core.autocrlf. Without this, a Windows
+# checkout can rewrite frontend/site files to CRLF, which breaks tools/make_precache.py's content hash (it reads
+# raw bytes) and any test that parses sw.js with a line-ending-sensitive regex.
+* text=auto eol=lf

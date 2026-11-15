@@ -1,8 +1,9 @@
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 # One image, one link: the API under /api/ and the web app at /. The same image runs the scheduler worker.
 # The web app is plain HTML, CSS and JavaScript (frontend/site), so there is no Node build stage: the files are
 # copied in as they are and Django serves them.
-# NOTE: written but not yet built in the session that created it (no Docker daemon there). Build it once.
+# Built and run with `docker compose up --build`: migrations apply, the app serves on :8000, and a wrong
+# password is refused cleanly by the API.
 
 FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 FRONTEND_DIST=/app/frontend_dist

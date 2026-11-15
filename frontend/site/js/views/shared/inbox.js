@@ -2,7 +2,7 @@
 // Safety rule: messages are not an emergency service; the notice from the server says so.
 import { html } from '../../dom.js'
 import { t } from '../../i18n.js'
-import { emptyState, fmtDateTime, icon, pageHeader } from '../../ui.js'
+import { emptyState, fmtDateTime, pageHeader } from '../../ui.js'
 
 export default async function inbox(ctx) {
   let data = null
@@ -11,7 +11,7 @@ export default async function inbox(ctx) {
     ${data && !data.results.length ? emptyState(t('messages.noThreads')) : ''}
     ${(data?.results ?? []).map(
       (th) => html`<a href="/p/${th.patient_ref}/messages" class="sc-card pad row" style="text-decoration: none; color: var(--ink); flex-wrap: nowrap">
-        <span class="sc-iconbox">${icon('chat-circle-text', 26, 'duotone')}</span>
+        <span class="sc-iconbox" aria-hidden="true" style="width: 2.75rem; height: 2.75rem; font-weight: 700; font-size: 1.1rem">${(th.patient_ref === 'me' ? t('messages.myTeam') : th.patient_name).charAt(0).toUpperCase()}</span>
         <span class="stack-s" style="flex-grow: 1; min-width: 0">
           <strong>${th.patient_ref === 'me' ? t('messages.myTeam') : th.patient_name}</strong>
           <span class="small muted" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">${th.last_message?.body ?? t('messages.none')}</span>

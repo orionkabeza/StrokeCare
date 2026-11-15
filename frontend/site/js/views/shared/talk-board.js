@@ -3,6 +3,7 @@
 // voice for the language when it has one. Everyday needs only. Signed-in patients also get a "Mine" tab with the
 // phrases they or their family added. It works before signing in, so it is there on a shared family phone.
 import { ICONS } from '../../icons.js'
+import { mountRecorder, recorderSlot } from '../../components/voice.js'
 import { html } from '../../dom.js'
 import { locale, t } from '../../i18n.js'
 import { canSpeak, speak } from '../../speech.js'
@@ -13,7 +14,7 @@ const iconName = (name) => (ICONS[name] ? name : 'chat-circle-text')
 
 export default async function talkBoard(ctx) {
   const { auth } = ctx
-  const s = { tab: 'needs', board: [], mine: [], shown: null }
+  const s = { tab: 'needs', board: [], mine: [], shown: null, closing: false }
   const tabs = () => [...(auth.isPatient ? ['mine'] : []), ...CATEGORIES]
   const tiles = () => (s.tab === 'mine' ? s.mine : s.board.filter((p) => p.category === s.tab))
 
@@ -26,7 +27,7 @@ export default async function talkBoard(ctx) {
       ${tiles().map(
         (p, i) => html`<button class="sc-card sc-rise pad stack" data-act="say" data-code="${p.code}" style="animation-delay: ${i * 40}ms; min-height: 8.5rem; align-items: flex-start; text-align: left; cursor: pointer; color: var(--ink)">
           <span class="sc-iconbox" style="width: 3.75rem; height: 3.75rem">${icon(iconName(p.icon), 36, 'duotone')}</span>
-          <span style="font-size: 1.2rem; font-weight: 800; line-height: 1.2">${p.label}</span>
+          <span style="font-size: 1.2rem; font-weight: 600; line-height: 1.2">${p.label}</span>
         </button>`,
       )}
     </div>
@@ -36,17 +37,22 @@ export default async function talkBoard(ctx) {
     ${draftNote()}
 
     ${s.shown
-      ? html`<div role="dialog" aria-modal="true" aria-label="${s.shown.label}" class="sc-app sc-hero" style="position: fixed; inset: 0; z-index: 60; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; padding: 2rem; text-align: center">
+      ? html`<div role="dialog" aria-modal="true" aria-label="${s.shown.label}" class="sc-app sc-hero ${s.closing ? 'sc-sheet-leaving' : ''}" style="position: fixed; inset: 0; z-index: 60; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; padding: 2rem; text-align: center">
           <span class="sc-glass sc-sheet" style="width: 8rem; height: 8rem; border-radius: 2.5rem; display: grid; place-items: center">${icon(iconName(s.shown.icon), 72, 'duotone')}</span>
           <span class="sc-sheet" style="font-size: 2.75rem; font-weight: 800; line-height: 1.1">${s.shown.label}</span>
           <div class="row" style="justify-content: center">
             ${canSpeak() ? html`<button class="sc-btn sc-glass" style="color: var(--on-hero)" data-act="again">${icon('speaker-high', 22)}${t('talk.again')}</button>` : ''}
-            <button class="sc-btn" style="background: #fff; color: #312E81" data-act="close">${t('common.done')}</button>
+            <button class="sc-btn" style="background: #fff; color: #111111" data-act="close">${t('common.done')}</button>
           </div>
+          ${auth.isPatient ? html`<div class="sc-sheet stack-s" style="width: 100%; max-width: 22rem; text-align: center">
+            <span class="tiny">${t('talk.practiceLead')}</span>
+            ${recorderSlot()}
+          </div>` : ''}
         </div>`
       : ''}
   </main>`
   const redraw = () => ctx.draw(view())
+  if (auth.isPatient) ctx.afterDraw(() => mountRecorder(ctx.el, { base: ctx.base, context: 'general' }))
   redraw()
 
   const [board, mine] = await Promise.allSettled([
@@ -65,5 +71,14 @@ export default async function talkBoard(ctx) {
     speak(s.shown.label)
   })
   ctx.on('click', '[data-act="again"]', () => speak(s.shown.label))
-  ctx.on('click', '[data-act="close"]', () => ((s.shown = null), redraw()))
+  // Fixed-time exit (not animationend) so it still closes on schedule when reduced motion skips the animation.
+  ctx.on('click', '[data-act="close"]', () => {
+    s.closing = true
+    redraw()
+    setTimeout(() => {
+      s.shown = null
+      s.closing = false
+      redraw()
+    }, 220)
+  })
 }

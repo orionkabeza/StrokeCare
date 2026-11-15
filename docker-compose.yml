@@ -1,6 +1,6 @@
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 # Local run: `docker compose up --build`, then open http://localhost:8000
-# NOTE: not yet run in the session that created it (no Docker daemon there).
+# Built and run: db, web and worker all come up healthy; see docs/DEPLOYMENT.md.
 services:
   db:
     image: postgres:16
@@ -25,11 +25,23 @@ services:
       DATABASE_URL: postgres://strokecare:strokecare@db:5432/strokecare
       ALLOW_DEMO_DATA: "1"
     ports: ["8000:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:8000/healthz')"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
   # Runs the background jobs (caregiver alerts) every 15 minutes.
   worker:
     build: .
     depends_on:
       db:
+        condition: service_healthy
+      # Not just "started": `web` runs the migration on its own startup. Waiting for its healthcheck (which needs
+      # gunicorn answering, which is after migrate) means the scheduler never starts before the database is ready,
+      # and avoids two containers calling `migrate` on the same fresh database at once (Postgres rejects the second
+      # table creation as a duplicate key, since `migrate` has no built-in cross-process lock for the first table).
+      web:
         condition: service_healthy
     environment: *env
     command: ["python", "manage.py", "run_scheduler", "--interval", "900"]
