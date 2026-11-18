@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Axel Mfura (Backend and database)
 
 Plausibility limits for typed blood pressure numbers. They exist only to reject typing mistakes
 such as 1200 or 0. They are NOT clinical thresholds and must never be shown as a "normal range".

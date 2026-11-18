@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Axel Mfura (Backend and database)
 
 Everything health-related we hold about one person, for the "download my data" right.
 """

@@ -1,6 +1,6 @@
 """Accounts, consent and accessibility preferences.
 
-Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Axel Mfura (Backend and database)
 Safety rules:
   * Anyone can sign up as a prevention user, survivor or caregiver. Clinician, community health worker and admin
     accounts are created by an administrator, and a professional can act only after `professional_verified_at` is set.

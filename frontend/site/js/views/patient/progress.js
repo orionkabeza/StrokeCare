@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The progress dashboard: what was written down, day by day. Safety rule: counts only. No percentage, score,
 // streak, target or colour that means good or bad, and a day with nothing recorded is just an empty day.
 import { html } from '../../dom.js'

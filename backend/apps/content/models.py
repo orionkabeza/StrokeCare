@@ -1,6 +1,6 @@
 """Education content and emergency contacts.
 
-Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Erica Rurangwa Sheja (Product Owner)
 Safety rules enforced by the database:
   * Nothing can be marked "reviewed" without a reviewer's name and a date.
   * An emergency contact is shown only after someone has verified it and recorded when.

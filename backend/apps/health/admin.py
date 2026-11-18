@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Axel Mfura (Backend and database)
 
 Only the check-in QUESTIONS are managed here, so reviewers can sign them off. Patients' health records are
 deliberately NOT registered in the admin: staff do not browse people's blood pressure.

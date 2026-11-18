@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Language, look, accessibility switches, the optional offline copy, sharing, export and account deletion.
 // Every setting follows the person to any phone because it is saved to their account.
 import { errorText } from '../../api.js'

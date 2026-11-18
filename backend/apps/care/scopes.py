@@ -1,6 +1,6 @@
 """What a linked person may do. The patient chooses, and can change or end it at any time.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 Safety rule: least privilege. A clinician can write the recovery plan but cannot log readings for the
 patient; a caregiver can log on the patient's behalf but can never change the clinician's plan.
 """

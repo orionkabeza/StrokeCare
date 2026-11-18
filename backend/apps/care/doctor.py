@@ -1,6 +1,6 @@
 """The doctor's home page and the person's "my care team" page.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 Safety rules:
   * The doctor's overview is plain facts and counts the person entered. There is no risk score and no ranking: the
     people who need a look are listed alphabetically, never by "severity".

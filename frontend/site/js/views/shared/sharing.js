@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Sharing. A patient makes a one-time code for a caregiver, clinician or health worker and can stop sharing at any
 // time. Everyone else enters a code. Safety rule: the survivor decides who sees what.
 import { errorText } from '../../api.js'

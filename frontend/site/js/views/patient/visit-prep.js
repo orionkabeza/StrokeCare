@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Questions for the next visit, voice notes, and a printable one-page list to take to the clinic.
 import { errorText } from '../../api.js'
 import { handleVoiceNotes, mountRecorder, recorderSlot, voiceNotes } from '../../components/voice.js'

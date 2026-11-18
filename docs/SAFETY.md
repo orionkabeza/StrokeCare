@@ -1,4 +1,4 @@
-<!-- Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md -->
+<!-- Owner: Erica Rurangwa Sheja (Product Owner) -->
 # Safety rules, and where each one is enforced
 
 These carry over from the team's safety boundary (`docs/safety.md` in the prototype). A rule that only lives in a

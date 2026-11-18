@@ -1,7 +1,7 @@
 """Personal recovery: goals in the person's own words, recovery stages set by a clinician, a movement log and
 personal talk-board phrases.
 
-Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Axel Mfura (Backend and database)
 Safety rules enforced here:
   * No score, grade, percentage, streak, target or "improvement" field exists on any of these models. The app
     records what people entered and counts it; it never judges it.

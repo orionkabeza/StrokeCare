@@ -1,4 +1,4 @@
-// Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Erica Rurangwa Sheja (Product Owner)
 // Every text the app shows exists in English, Kinyarwanda and French, and none is blank.
 import './setup.js'
 

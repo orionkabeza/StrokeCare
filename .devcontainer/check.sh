@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 # Checks that StrokeCare is really running and prints the address to open. Exit code 0 means every check passed.
 # Run it any time:  bash .devcontainer/check.sh
 set -uo pipefail

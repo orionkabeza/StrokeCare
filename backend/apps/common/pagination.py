@@ -1,4 +1,4 @@
-"""Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Kenneth Master (System architect)
 
 Reads are always capped, so one request can never pull a whole history.
 """

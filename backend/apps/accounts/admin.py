@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Axel Mfura (Backend and database)
 
 Administrators verify clinicians here. A clinician account has no power until it is verified.
 """

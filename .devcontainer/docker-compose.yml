@@ -1,4 +1,4 @@
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 # Used by devcontainer.json. Two containers: `app` (where you work) and `db` (PostgreSQL 16).
 services:
   app:

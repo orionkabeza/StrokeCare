@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Personal talk-board phrases: the words this person needs most, added by them or by family, in any language.
 // They appear first on the talk board. These are the person's own words, not medical advice.
 import { errorText } from '../../api.js'

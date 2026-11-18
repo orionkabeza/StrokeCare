@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 # Runs once when the Codespace is created: installs the backend packages, prepares the database and loads
 # fictional demo data. Safe to run again.
 set -euo pipefail

@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The API client and the offline outbox: token refresh, readable errors, queued writes, and sending each entry once.
 import './setup.js'
 

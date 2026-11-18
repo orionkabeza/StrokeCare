@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Safety rule: the list is written by the clinician. Here a dose can only be marked as taken. No advice.
 // Doses are grouped by part of the day (a display grouping by clock time, not medical guidance), each course shows
 // its dates, and one tap marks everything in a part of the day, so a tired person makes fewer taps.

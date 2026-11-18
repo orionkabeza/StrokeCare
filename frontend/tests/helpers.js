@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 import { mock } from 'node:test'
 
 import { readdirSync, readFileSync, statSync } from 'node:fs'

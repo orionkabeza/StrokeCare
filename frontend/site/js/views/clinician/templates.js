@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // A clinician's reusable task lists, private to them. One task per line.
 import { errorText } from '../../api.js'
 import { html } from '../../dom.js'

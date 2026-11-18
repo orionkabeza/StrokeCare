@@ -1,6 +1,6 @@
 """Consent gate and the invitation flow between patients, clinicians and caregivers.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 """
 from datetime import timedelta
 

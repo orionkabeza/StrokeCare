@@ -1,4 +1,4 @@
-"""Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md"""
+"""Owner: Erica Rurangwa Sheja (Product Owner)"""
 from django.urls import path
 
 from . import views

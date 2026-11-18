@@ -1,6 +1,6 @@
 """The one place that decides whose data a request may touch.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 
 Every patient-data route lives under /patients/<me|uuid>/... and calls `resolve_access`. Rules:
   * `me`            -> only for patient accounts, only with the health-data consent, never the clinical plan.

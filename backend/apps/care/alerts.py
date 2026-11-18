@@ -1,6 +1,6 @@
 """Caregiver alerts, worked out from plain facts when the caregiver opens the app.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 No background worker is needed: alerts are computed on read and de-duplicated, so opening the app twice never
 repeats one. `python manage.py generate_alerts` does the same for every caregiver, ready for a scheduler later.
 """

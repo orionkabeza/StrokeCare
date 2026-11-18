@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 # Runs every time the Codespace starts: the server on port 8000 (app and API together) and the alert worker,
 # then checks that everything really answers.
 set -euo pipefail

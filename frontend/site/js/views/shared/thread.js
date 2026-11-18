@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The care-team conversation for one person. It checks for new messages every 20 seconds while it is open.
 // Safety rule: messages are not an emergency service; the notice says so.
 import { errorText } from '../../api.js'

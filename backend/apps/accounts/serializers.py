@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md"""
+"""Owner: Axel Mfura (Backend and database)"""
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from django.conf import settings

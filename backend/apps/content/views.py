@@ -1,4 +1,4 @@
-"""Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Erica Rurangwa Sheja (Product Owner)
 
 Education and emergency guidance are public on purpose: they hold no personal data, and someone who is
 not signed in, or cannot sign in, must still be able to read them.

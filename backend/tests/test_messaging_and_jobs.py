@@ -1,6 +1,6 @@
 """Care-team messaging, the scheduler, and the community-health-worker role.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 """
 import pytest
 from django.core.management import call_command

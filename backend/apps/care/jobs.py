@@ -1,6 +1,6 @@
 """Background jobs, run by the scheduler.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 Three ways to run them, all calling `run_all()`:
   * `python manage.py run_scheduler`        a worker process that loops (docker-compose `worker` service)
   * `python manage.py generate_alerts`      one run, for any cron

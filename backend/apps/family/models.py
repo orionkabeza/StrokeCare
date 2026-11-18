@@ -1,6 +1,6 @@
 """Family care calendar and handover notes: who does what, and what the next person needs to know.
 
-Owner: Aubin Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Aubin Axel Mfura (Backend and database)
 Several relatives often share the care. The calendar shows appointments, medicine pick-ups, transport and visits,
 each with who is doing it. Handover notes are short messages from one carer to the next.
 """

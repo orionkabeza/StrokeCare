@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // "My care team": who may see my records, my current stage and my next appointment. The person always knows who
 // can see their information, and can change it under Sharing.
 import { html } from '../../dom.js'

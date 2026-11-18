@@ -1,6 +1,6 @@
 """Append-only audit log.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 Safety rule: every time someone other than the patient touches a patient's data, it is recorded.
 We store the minimum: who, whose data, what kind of action, when. No health values, no IP address.
 Note: the application cannot edit or delete rows. For production, also revoke UPDATE/DELETE on this

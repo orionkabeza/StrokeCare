@@ -1,6 +1,6 @@
 """The right to download and erase your data, the audit trail, and no caching.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 """
 import json
 

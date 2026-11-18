@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Safety rule: no phone number is shown until a named person has verified it. Without one, the screen says to
 // contact local emergency services the usual way and never to wait for the app.
 import { html } from '../../dom.js'

@@ -1,6 +1,6 @@
 """The care-team conversation: one thread per patient, shared with the people they chose.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 Safety rule: messaging is not for emergencies and is not watched around the clock. Every thread response
 carries that notice, and the app shows it above the message box.
 """

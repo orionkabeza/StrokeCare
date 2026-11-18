@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Reminders and what is coming up, including appointments from the care calendar. Reminders show inside the app.
 // Phone alerts (SMS, push) are not built yet and the screen says so.
 import { errorText } from '../../api.js'

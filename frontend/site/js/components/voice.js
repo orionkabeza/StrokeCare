@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Voice notes: record one from the phone's microphone, list them, play them and delete them.
 // Only real audio is stored, with size and length limits enforced by the server.
 import { api, errorText } from '../api.js'

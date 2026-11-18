@@ -1,4 +1,4 @@
-"""Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Kenneth Master (System architect)
 
 URL piece for "whose record is this": the word `me` or a UUID. Anything else is a 404.
 """

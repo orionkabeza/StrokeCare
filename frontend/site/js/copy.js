@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // An OPTIONAL copy of the person's own plan on this phone, so it can be read without a connection.
 // Privacy rules, because phones are often shared:
 //   * OFF by default. The person turns it on in Settings and is told it stays on the phone until sign-out.

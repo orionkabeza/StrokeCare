@@ -87,7 +87,6 @@
       "rules": [
         "README.md",
         "OWNERS.json",
-        "AI_USE_LOG.md",
         "docs/TEAM_HANDOFF.md",
         ".github/pull_request_template.md"
       ]

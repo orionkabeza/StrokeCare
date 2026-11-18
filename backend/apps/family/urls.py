@@ -1,4 +1,4 @@
-"""Owner: Aubin Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md"""
+"""Owner: Aubin Axel Mfura (Backend and database)"""
 from django.urls import path
 
 from . import views

@@ -1,6 +1,6 @@
 """Medicines, questions for the next visit, plan templates.
 
-Owner: Aubin Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Aubin Axel Mfura (Backend and database)
 """
 from datetime import timedelta
 

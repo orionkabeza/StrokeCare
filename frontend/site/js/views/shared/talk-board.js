@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // For people who find speaking hard. Tap a tile: the words fill the screen and the phone says them, using its own
 // voice for the language when it has one. Everyday needs only. Signed-in patients also get a "Mine" tab with the
 // phrases they or their family added. It works before signing in, so it is there on a shared family phone.

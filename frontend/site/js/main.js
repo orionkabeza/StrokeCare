@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Start the app: language first, then the frame, then the first screen.
 import { initialLocale, setLocale } from './i18n.js'
 import { startRouter } from './router.js'

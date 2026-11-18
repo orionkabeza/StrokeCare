@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The doctor's home: who may need a look, today's appointments and unread messages, at a glance.
 // Safety rule: plain facts the patients entered, listed by NAME. No risk score and no ranking by importance.
 import { errorText } from '../../api.js'

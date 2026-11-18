@@ -1,6 +1,6 @@
 """Family care calendar, handover notes, voice notes and home visits.
 
-Owner: Aubin Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Aubin Axel Mfura (Backend and database)
 """
 import uuid
 from datetime import timedelta

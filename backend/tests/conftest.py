@@ -1,6 +1,6 @@
 """Shared test helpers.
 
-Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Orion Kabeza (DevOps)
 """
 from types import SimpleNamespace
 

@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The movement log: what the person did, for how long and with what help. Plain facts the person enters.
 // Safety rule: there is no right amount, no target, no score, and no streak. Fewer taps: "same as last time".
 import { errorText } from '../../api.js'

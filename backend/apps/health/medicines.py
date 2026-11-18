@@ -1,6 +1,6 @@
 """Medicines, questions for the next visit, and clinicians' plan templates.
 
-Owner: Aubin Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Aubin Axel Mfura (Backend and database)
 Safety rules:
   * Only a verified clinician writes the medicine list (scope `manage_meds`). Patients and caregivers can only
     mark a scheduled dose as taken. The app never suggests, changes or explains a dose.

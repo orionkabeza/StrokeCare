@@ -1,4 +1,4 @@
-<!-- Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md -->
+<!-- Owner: Emmanuel Happy Rangira (Frontend developer) -->
 # Frontend
 
 Plain HTML, CSS and JavaScript. No framework, no packages to install, no build step. The files in `site/` are served

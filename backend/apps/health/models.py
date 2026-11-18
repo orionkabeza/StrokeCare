@@ -1,6 +1,6 @@
 """Health records: blood pressure, recovery plan, daily check-in, reminders.
 
-Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Axel Mfura (Backend and database)
 Safety rules enforced here:
   * Blood pressure is stored and returned as numbers. There is no label, colour, band or risk field.
   * A recovery plan is written only by a verified clinician. One plan per patient, one tick per task per day.

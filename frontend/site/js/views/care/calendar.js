@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The family care calendar: who does what, and handover notes from one carer to the next. An appointment can carry
 // a reminder time (15 minutes to 2 days before) that shows on the person's Today screen and alerts caregivers.
 import { errorText } from '../../api.js'

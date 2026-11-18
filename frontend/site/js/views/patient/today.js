@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The survivor's day on one screen: what is done so far, quick ways in, what is coming up and today's plan.
 // Safety rule: it counts what is done. There are no streaks and no scores.
 import { errorText } from '../../api.js'

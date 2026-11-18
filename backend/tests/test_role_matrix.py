@@ -1,6 +1,6 @@
 """Who may call what: every patient-data route against every kind of person.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 Mirrors the role matrix the team already uses (route, survivor, prevention, clinician, visitor) and adds the
 caregiver, unlinked people and other patients. A request for someone else's record is a 404, not a 403.
 """

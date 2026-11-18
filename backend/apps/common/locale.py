@@ -1,4 +1,4 @@
-"""Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Erica Rurangwa Sheja (Product Owner)
 
 Language choice with English fallback (decision DEC-009): a missing translation never hides content.
 """

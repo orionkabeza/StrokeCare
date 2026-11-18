@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Personal recovery in one place: the stage the clinician named, the person's own goals, and ways into the
 // movement log and progress. Safety rule: no score, no target, no judgement. The stage is the clinician's wording.
 import { errorText } from '../../api.js'

@@ -1,4 +1,4 @@
-// Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Orion Kabeza (DevOps)
 // Checks on the files themselves: nothing the browser's security rules would block, an offline list that is complete,
 // and a service worker that can never keep personal data.
 import './setup.js'

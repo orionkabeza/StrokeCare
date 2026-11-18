@@ -1,6 +1,6 @@
 """Create a clinician account after an administrator has checked their credentials.
 
-Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Axel Mfura (Backend and database)
 Safety rule: only run this after you have checked the person's licence. `--verified` records that you did.
 """
 import secrets

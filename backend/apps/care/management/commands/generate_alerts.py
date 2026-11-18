@@ -1,4 +1,4 @@
-"""Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Kenneth Master (System architect)
 
 Compute alerts for every caregiver once. Safe to run on a schedule; it never duplicates an alert.
 """

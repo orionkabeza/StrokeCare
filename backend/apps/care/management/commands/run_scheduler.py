@@ -1,4 +1,4 @@
-"""Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Kenneth Master (System architect)
 
 A small worker: runs the jobs every --interval seconds until stopped. Use it where the host allows a background
 worker (docker-compose `worker`). A failed run is logged and retried at the next tick; it never stops the loop.

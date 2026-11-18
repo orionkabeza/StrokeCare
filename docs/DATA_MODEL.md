@@ -1,4 +1,4 @@
-<!-- Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md -->
+<!-- Owner: Kenneth Master (System architect) -->
 # Data model
 
 The diagram is generated from the real Django models, so it cannot drift from the database. To refresh it:

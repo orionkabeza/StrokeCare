@@ -1,6 +1,6 @@
 """Goals, recovery stages, movement log, personal phrases and the progress dashboard.
 
-Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Axel Mfura (Backend and database)
 All of it lives under /patients/<me|uuid>/ and goes through the one access function. Scopes:
   * goals and personal phrases: `view_notes` to read, `add_notes` to write (the person's own words)
   * recovery stages: `view_plan` to read, `manage_plan` to write (a verified clinician only)

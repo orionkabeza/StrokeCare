@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md"""
+"""Owner: Axel Mfura (Backend and database)"""
 from django.conf import settings
 from django.contrib import admin
 from django.db import connection

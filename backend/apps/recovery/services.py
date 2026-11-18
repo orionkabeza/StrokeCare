@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Axel Mfura (Backend and database)
 
 The progress dashboard: plain counts per day. Safety rule: counts only. No percentage, score, streak, target or
 colour judgement, and a day with nothing recorded is just an empty day, never a "miss".

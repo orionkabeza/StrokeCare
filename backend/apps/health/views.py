@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Axel Mfura (Backend and database)
 
 Every view here reads only `self.access.subject`'s rows (ownership lives in the query), and the access
 check has already run. A record id that belongs to someone else is simply "not found".

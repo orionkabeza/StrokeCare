@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Entries made without signal wait here and are sent, in order, when the phone reconnects.
 // Privacy: only the waiting entries are kept on the phone, and each is deleted as soon as the server accepts it.
 import { signal } from './state.js'

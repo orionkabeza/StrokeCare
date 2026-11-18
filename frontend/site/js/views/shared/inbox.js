@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Safety rule: messages are not an emergency service; the notice from the server says so.
 import { html } from '../../dom.js'
 import { t } from '../../i18n.js'

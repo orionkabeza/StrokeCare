@@ -1,6 +1,6 @@
 """Load the check-in questions that ship with the app. Safe to run on every deploy.
 
-Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Erica Rurangwa Sheja (Product Owner)
 It creates missing questions and phrases. For rows still in DRAFT it also adds languages that are missing
 (new translations), never replacing text someone already wrote. Reviewed rows are never touched.
 """

@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // A community health worker's home: the people who invited them, and a way to send visits recorded without signal.
 import { html } from '../../dom.js'
 import { pendingCount } from '../../offline.js'

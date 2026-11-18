@@ -1,4 +1,4 @@
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 import os
 
 from django.core.wsgi import get_wsgi_application

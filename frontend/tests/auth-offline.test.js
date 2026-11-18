@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Opening the app with no signal must never sign the person out, and with the optional saved copy it opens offline.
 import './setup.js'
 

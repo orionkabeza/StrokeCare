@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build frontend/site/js/icons.js from Phosphor's SVG files (MIT licence, https://phosphoricons.com).
 
-Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Orion Kabeza (DevOps)
 
 The app draws its icons inline from this one generated file, so there is no icon library to install and no build
 step. Only the icons the app uses are kept, in the four weights it needs. To add an icon, add its name to NAMES and run:

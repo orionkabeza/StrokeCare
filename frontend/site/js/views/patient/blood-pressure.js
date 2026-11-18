@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Safety rule: blood pressure is shown as plain numbers. No colour, label, band, arrow or warning ever says whether a
 // reading is good or bad. The only message is a typing check (the top number cannot be below the bottom one).
 import { ApiError, errorText } from '../../api.js'

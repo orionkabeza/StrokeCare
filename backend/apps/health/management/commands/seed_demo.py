@@ -1,6 +1,6 @@
 """Fictional demo data for the course demo and for developers. NEVER for real people.
 
-Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Axel Mfura (Backend and database)
 Safety rules: refuses to run unless ALLOW_DEMO_DATA is on; all names and emails are fictional
 (@example.org); blood pressure numbers are random; there are NO emergency contacts and NO medical advice.
 """

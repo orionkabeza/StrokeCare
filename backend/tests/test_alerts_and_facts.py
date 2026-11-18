@@ -1,6 +1,6 @@
 """Caregiver alerts and the clinician's "needs a look" facts.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 Both are plain facts (dates and counts). Neither ranks people by risk.
 """
 from datetime import timedelta

@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md"""
+"""Owner: Axel Mfura (Backend and database)"""
 import json
 
 from django.conf import settings

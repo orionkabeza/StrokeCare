@@ -1,6 +1,6 @@
 """Django settings for StrokeCare.
 
-Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Orion Kabeza (DevOps)
 Safety rule: no secrets in the repo. Everything sensitive comes from the environment,
 and the app refuses to start in production without a real secret and a PostgreSQL URL.
 """

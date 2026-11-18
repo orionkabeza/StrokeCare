@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Record a home visit. It works with no signal: the visit waits on the phone and is sent once when the phone is
 // back online (the phone's client_id makes a repeat harmless). A health worker records; they never change the plan.
 import { errorText } from '../../api.js'

@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // One way to talk to the API: adds the token, refreshes it once when it expires, turns errors into plain sentences,
 // and queues a few kinds of entries when the phone is offline so nothing typed is lost.
 import { readCopy, saveCopy, showingCopy } from './copy.js'

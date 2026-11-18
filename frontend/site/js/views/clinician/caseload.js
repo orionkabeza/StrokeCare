@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Safety rule: "needs a look" filters are plain facts (dates, counts). No risk score, no ranking.
 import { html } from '../../dom.js'
 import { locale, t } from '../../i18n.js'

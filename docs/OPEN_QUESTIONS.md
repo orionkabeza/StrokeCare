@@ -1,4 +1,4 @@
-<!-- Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md -->
+<!-- Owner: Erica Rurangwa Sheja (Product Owner) -->
 # Open questions and launch blockers
 
 The code is built to be safe by default, but a product for real patients also needs things code cannot supply.

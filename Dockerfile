@@ -1,4 +1,4 @@
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 # One image, one link: the API under /api/ and the web app at /. The same image runs the scheduler worker.
 # The web app is plain HTML, CSS and JavaScript (frontend/site), so there is no Node build stage: the files are
 # copied in as they are and Django serves them.

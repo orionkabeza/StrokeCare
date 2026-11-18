@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Small pieces every screen uses: icons, the page header, empty and draft notices, the progress ring, a bar chart,
 // toasts and date helpers. Each returns markup built with html``, so anything passed in is escaped.
 import { ICONS } from './icons.js'

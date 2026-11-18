@@ -1,4 +1,4 @@
-"""Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Axel Mfura (Backend and database)
 
 Everything about a person lives under /patients/<me|uuid>/. `me` is yourself; a uuid is someone who
 shared with you through a care link.

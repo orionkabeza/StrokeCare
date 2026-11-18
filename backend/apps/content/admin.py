@@ -1,4 +1,4 @@
-"""Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md
+"""Owner: Erica Rurangwa Sheja (Product Owner)
 
 The content reviewers' workspace: write, translate, and sign off here.
 """

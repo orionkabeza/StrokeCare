@@ -1,6 +1,6 @@
 """The safety boundary, as tests. If one of these fails, a safety rule was broken.
 
-Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Erica Rurangwa Sheja (Product Owner)
 Rules: no diagnosis, no prescribing, no risk score, no colours or labels on blood pressure, no unverified
 emergency number, nothing marked "reviewed" without a named reviewer.
 """

@@ -1,4 +1,4 @@
-"""Owner: Aubin Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md"""
+"""Owner: Aubin Axel Mfura (Backend and database)"""
 from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 

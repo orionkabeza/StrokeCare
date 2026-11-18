@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Safe HTML templates and a few DOM helpers. There is no framework: a screen is a function that returns HTML.
 // Every value placed in a template is escaped automatically, so text from people or the server can never become
 // markup. To insert markup you wrote yourself (an icon, a nested template), wrap it with raw() or build it with html``.

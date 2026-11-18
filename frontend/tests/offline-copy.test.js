@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The optional "keep my plan on this phone" copy. Phones are often shared, so the rules are strict:
 // off by default, only the person's own plan-type data, never health readings or messages, one owner, and wiped on sign-out.
 import './setup.js'

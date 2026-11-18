@@ -1,6 +1,6 @@
 """Home visits by community health workers (CHWs).
 
-Owner: Aubin Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Aubin Axel Mfura (Backend and database)
 A visit is recorded on the CHW's phone, often without signal, and sent later. `client_id` is made on the phone,
 so sending the same visit twice never creates two visits.
 Safety rule: the checklist records what the CHW did. It asks for no diagnosis and gives no advice.

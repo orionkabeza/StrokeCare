@@ -1,4 +1,4 @@
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 # A free scheduler for hosts without background workers: every 15 minutes, ask the app to run its jobs.
 # Set two repository secrets: STROKECARE_URL (e.g. https://strokecare.example.org) and CRON_SECRET (same value as
 # the app's CRON_SECRET). Until both exist, this workflow does nothing. GitHub may delay scheduled runs at busy times.

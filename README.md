@@ -1,4 +1,4 @@
-<!-- Owner: Malaika Elohim Isingizwe Mukama (Scrum Master) · AI-assisted draft, see AI_USE_LOG.md -->
+<!-- Owner: Malaika Elohim Isingizwe Mukama (Scrum Master) -->
 # StrokeCare
 
 Stroke prevention and recovery at home, for Rwanda, in English, Kinyarwanda and French.

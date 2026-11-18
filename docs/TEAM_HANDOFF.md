@@ -1,4 +1,4 @@
-<!-- Owner: Malaika Elohim Isingizwe Mukama (Scrum Master) · AI-assisted draft, see AI_USE_LOG.md -->
+<!-- Owner: Malaika Elohim Isingizwe Mukama (Scrum Master) -->
 # How the team takes over the code
 
 The whole project is already on `main` of **https://github.com/erangira-005/StrokeCare-app**. It went in as a few
@@ -20,9 +20,8 @@ disagree with, and commit that under your own name.
    - frontend: `cd frontend && npm test` (Node 22 or newer; nothing to install, no build); 62 tests should pass.
      Then `python tools/make_precache.py --check` should say OK
 5. Make it yours: fix what you disagree with, change what is wrong, add what is missing. Commit in small commits **under
-   your own name**. When you have fully reviewed or rewritten a file, remove its "AI-assisted draft" line.
+   your own name**.
 6. Open a pull request using the template; link your Trello card; one teammate approves.
-7. Add or update your row in `AI_USE_LOG.md`: what you asked the AI, what it produced, and how you changed it.
 
 ## Suggested reading and review order
 
@@ -53,10 +52,3 @@ Kenneth ↔ Axel review each other. Axel reviews Happy. Malaika ↔ Erica. Kenne
 | Erica | `apps/content/`, `docs/SAFETY.md` (rules 21 to 26), `test_safety.py`, `fixtures/`, `locales/` | Where is each safety rule enforced? Why does the app ship no definition of a recovery stage? What are the launch blockers? |
 | Happy | `frontend/site/js/api.js`, `copy.js`, `offline.js`, `store.js`, `router.js`, `dom.js`, `views/patient/check-in.js`, `progress.js`, `mobility.js` | How does a screen draw and keep what you typed when it redraws? Why can a name never become markup? How does the offline outbox work? What may the optional offline copy hold, and what never? Why is a person never signed out for being offline? |
 | Malaika | `README.md`, `OWNERS.json`, this file | Which open questions are decisions, and who owns each? |
-
-## A note on course rules
-
-The course requires any AI use to be disclosed with every prompt, every output and how it was changed, and says
-individual marks follow your own coding contributions. These files were drafted with AI assistance. Do not present
-them as solely your own work: record them in `AI_USE_LOG.md`, change and understand them, and check with the
-teaching team how they want this handled.

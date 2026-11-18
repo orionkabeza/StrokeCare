@@ -1,6 +1,6 @@
 """Links between a patient and the clinicians and caregivers they choose to share with.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 Flow: the patient creates an invitation (a short one-time code, stored only as a hash). The clinician
 or caregiver enters it while signed in. Either side can end the link at any time.
 """

@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // One person's last days, for whoever they shared it with. Clinicians also write the plan, the medicine list and the
 // recovery stages here. Safety rule: counts, averages and their own words. The disclaimer is always shown.
 import { errorText } from '../../api.js'

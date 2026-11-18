@@ -1,4 +1,4 @@
-"""Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md"""
+"""Owner: Kenneth Master (System architect)"""
 from rest_framework import serializers
 
 from .models import Relation

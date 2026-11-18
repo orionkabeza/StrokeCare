@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Safety rule: every item shows its source and its review state. Draft content says so.
 import { errorText } from '../../api.js'
 import { html } from '../../dom.js'

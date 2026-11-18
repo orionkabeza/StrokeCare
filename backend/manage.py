@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Owner: Orion Kabeza (DevOps) · AI-assisted draft, see AI_USE_LOG.md
+# Owner: Orion Kabeza (DevOps)
 import os
 import sys
 

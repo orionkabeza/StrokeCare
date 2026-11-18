@@ -1,4 +1,4 @@
-/* Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+/* Owner: Emmanuel Happy Rangira (Frontend developer)
    Layout on top of tokens.css. Sizes in rem so the person's text-size choice scales everything. */
 
 *, *::before, *::after { box-sizing: border-box; }

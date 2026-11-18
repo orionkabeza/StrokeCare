@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The route table: every screen loads, the right accounts reach the right screens, and nobody is let in by accident.
 import './setup.js'
 

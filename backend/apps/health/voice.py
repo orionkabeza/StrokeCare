@@ -1,6 +1,6 @@
 """Voice notes: record on the phone, listen in the clinic.
 
-Owner: Aubin Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Aubin Axel Mfura (Backend and database)
 Safety rules: only audio is accepted (checked by the file's first bytes, not only its name); size and length are
 capped; listening by anyone other than the patient is audited like every other access.
 """

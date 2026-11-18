@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // A small router on the browser's History API. Each screen is a module whose default export draws it.
 // A screen receives a context: ctx.params, ctx.query, ctx.draw(html), ctx.on(event, selector, handler), ctx.go(path),
 // plus ctx.base / ctx.isSelf / ctx.link() for screens that show someone's record (/p/:ref/...).

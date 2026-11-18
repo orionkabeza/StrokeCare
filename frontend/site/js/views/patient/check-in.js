@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // By default every question is on ONE screen with one Send button, so a tired person makes as few taps as possible.
 // With the "One question at a time" setting it goes step by step. Either way every question can be skipped.
 // Safety rule: an answer listed in a question's urgent_values shows emergency guidance AT ONCE, before anything is

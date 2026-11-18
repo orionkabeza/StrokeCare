@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 import { errorText } from '../../api.js'
 import { html } from '../../dom.js'
 import { t } from '../../i18n.js'

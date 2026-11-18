@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // Reads text aloud with the phone's own voice. There are no recordings. If the phone has no voice for the chosen
 // language (Kinyarwanda voices are rare), canSpeak() is false and the screen shows the words large instead.
 import { locale } from './i18n.js'

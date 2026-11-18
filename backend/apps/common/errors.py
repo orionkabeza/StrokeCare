@@ -1,6 +1,6 @@
 """One error shape for the whole API, written as plain sentences.
 
-Owner: Kenneth Master (System architect) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Kenneth Master (System architect)
 
     {"error": {"code": "consent_required", "message": "...", "fields": {...}}}
 

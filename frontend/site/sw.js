@@ -1,4 +1,4 @@
-// Owner: Emmanuel Happy Rangira (Frontend developer) · AI-assisted draft, see AI_USE_LOG.md
+// Owner: Emmanuel Happy Rangira (Frontend developer)
 // The service worker: keeps the app itself (pages, scripts, styles, texts) working without a connection.
 // Privacy rule: ONLY public content is ever cached here (education, the talk board, emergency guidance, the visit
 // checklist). Personal health data is never cached by the service worker. The person's own optional copy is a
@@ -6,7 +6,7 @@
 //
 // The list below is generated: run `python tools/make_precache.py` after changing any file under frontend/site.
 // BEGIN PRECACHE
-const VERSION = 'b6920215945e'
+const VERSION = 'a49860bcd24f'
 const PRECACHE = [
   '/',
   '/css/app.css',

@@ -1,7 +1,7 @@
 """Goals, recovery stages, movement log, personal phrases, progress dashboard, appointment reminders, bulk doses,
 the doctor's home page and "my care team".
 
-Owner: Axel Mfura (Backend and database) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Axel Mfura (Backend and database)
 """
 from datetime import time, timedelta
 

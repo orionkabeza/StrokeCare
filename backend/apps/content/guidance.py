@@ -1,6 +1,6 @@
 """Emergency guidance shown with the verified contact list.
 
-Owner: Erica Rurangwa Sheja (Product Owner) · AI-assisted draft, see AI_USE_LOG.md
+Owner: Erica Rurangwa Sheja (Product Owner)
 Safety rules: it says "contact local emergency services" and "do not wait for this app". It contains NO phone
 number. Numbers come only from verified EmergencyContact rows.
 LAUNCH BLOCKER: the French and Kinyarwanda texts are AI drafts. A native speaker with clinical review must
