@@ -10,22 +10,28 @@ const CONTEXTS = ['resting', 'morning', 'evening', 'after_activity', 'other']
 
 export default async function bloodPressure(ctx) {
   const { base, isSelf } = ctx
-  const s = { rows: [], context: 'resting', fields: {}, busy: false, showAll: false }
+  const s = { rows: [], loaded: false, context: 'resting', fields: {}, busy: false, showAll: false }
 
   const view = () => {
     const shown = s.showAll ? s.rows : s.rows.slice(0, 10)
     return html`<main class="page">
       ${pageHeader({ title: t('bp.title'), back: true })}
+      ${s.rows.length
+        ? html`<div class="stack-s" style="align-items: center; text-align: center">
+            <span class="display-number">${s.rows[0].systolic}/${s.rows[0].diastolic}<span class="unit">mmHg</span></span>
+            <span class="tiny">${new Date(s.rows[0].taken_at).toLocaleString(locale.value, { dateStyle: 'medium', timeStyle: 'short' })}</span>
+          </div>`
+        : ''}
       <section class="sc-card pad stack-s">
         <div class="row-between"><h2>${t('bp.recent')}</h2><span class="tiny">${t('bp.numbersOnly')}</span></div>
-        ${s.rows.length > 1 ? bpChart(s.rows) : !s.rows.length ? emptyState(t('bp.none')) : ''}
+        ${s.rows.length > 1 ? bpChart(s.rows) : s.loaded && !s.rows.length ? emptyState(t('bp.none')) : ''}
       </section>
 
       <form class="sc-card pad stack" data-form="bp">
         <h2>${t('bp.add')}</h2>
         <div class="grid-2">
-          <label class="field">${t('bp.top')}<input name="systolic" class="sc-input" inputmode="numeric" pattern="[0-9]*" required style="font-size: 1.9rem; font-weight: 800; min-height: 4.25rem" /></label>
-          <label class="field">${t('bp.bottom')}<input name="diastolic" class="sc-input" inputmode="numeric" pattern="[0-9]*" required style="font-size: 1.9rem; font-weight: 800; min-height: 4.25rem" /></label>
+          <label class="field">${t('bp.top')}<input name="systolic" class="sc-input" inputmode="numeric" pattern="[0-9]*" required style="font-size: 1.9rem; font-weight: 600; min-height: 4.25rem" /></label>
+          <label class="field">${t('bp.bottom')}<input name="diastolic" class="sc-input" inputmode="numeric" pattern="[0-9]*" required style="font-size: 1.9rem; font-weight: 600; min-height: 4.25rem" /></label>
         </div>
         <p class="tiny">${t('bp.hint')}</p>
         <p class="banner" role="alert" data-warn hidden>${t('bp.topAboveBottom')}</p>
@@ -34,7 +40,7 @@ export default async function bloodPressure(ctx) {
           ${CONTEXTS.map((c) => html`<button type="button" class="sc-chip" data-act="context" data-value="${c}" aria-pressed="${s.context === c ? 'true' : 'false'}">${t(`bp.ctx.${c}`)}</button>`)}
         </div>
         <label class="field">${t('common.noteOptional')}<input name="note" class="sc-input" maxlength="500" /></label>
-        <button class="sc-btn sc-btn-primary thumb-actions" ${s.busy ? 'disabled' : ''}>${icon('check', 20)}${t('bp.save')}</button>
+        <button class="sc-btn sc-btn-primary thumb-actions" ${s.busy ? 'disabled' : ''}>${icon('check', 20)}${t('bp.add')}</button>
       </form>
 
       <section class="stack">
@@ -42,7 +48,7 @@ export default async function bloodPressure(ctx) {
         <ul class="list">
           ${shown.map(
             (r) => html`<li class="sc-card list-row">
-              <span style="font-size: 1.4rem; font-weight: 800">${r.systolic} / ${r.diastolic} <span class="tiny">mmHg</span></span>
+              <span style="font-size: 1.4rem; font-weight: 600; font-variant-numeric: tabular-nums">${r.systolic} / ${r.diastolic} <span class="tiny">mmHg</span></span>
               <span class="small muted" style="flex-grow: 1; text-align: right">${new Date(r.taken_at).toLocaleString(locale.value, { dateStyle: 'medium', timeStyle: 'short' })} · ${t(`roles.by.${byWho(r.entered_by_self ? 'survivor' : r.entered_by_role, isSelf)}`)}</span>
               ${isSelf || !r.entered_by_self ? html`<button class="icon-btn" data-act="delete" data-id="${r.id}" aria-label="${t('common.delete')}">${icon('trash', 18)}</button>` : ''}
             </li>`,
@@ -59,6 +65,7 @@ export default async function bloodPressure(ctx) {
     } catch (e) {
       toast(errorText(e))
     }
+    s.loaded = true
     ctx.draw(view())
   }
   ctx.draw(view())

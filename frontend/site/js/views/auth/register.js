@@ -7,11 +7,11 @@ export default function register(ctx) {
   const s = { error: '', fields: {} }
   const view = () => html`<main class="page" style="max-width: 30rem; padding-top: 2rem">
     <h1>${t('auth.create')}</h1>
-    <form class="stack" data-form="register">
+    <form class="sc-card pad-l stack" data-form="register">
       <fieldset class="stack-s" style="border: 0; padding: 0; margin: 0">
         <legend class="field" style="margin-bottom: 0.4rem">${t('auth.iAm')}</legend>
         ${['survivor', 'prevention', 'caregiver'].map(
-          (r) => html`<label class="sc-card check pad" style="box-shadow: none">
+          (r) => html`<label class="check" style="padding: 0.75rem; border: 1.5px solid var(--line-strong); border-radius: 12px">
             <input type="radio" name="role" value="${r}" ${r === 'survivor' ? 'checked' : ''} />
             <span class="stack-s"><strong>${t(`roles.${r}`)}</strong><span class="small muted">${t(`roles.${r}Hint`)}</span></span>
           </label>`,

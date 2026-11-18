@@ -9,9 +9,30 @@
       "rw": "Wumvise umeze ute uyu munsi ugereranyije n'ejo?"
     },
     "choices": [
-      {"value": "better", "label": {"en": "Better", "fr": "Mieux", "rw": "Neza kurusha ejo"}},
-      {"value": "same", "label": {"en": "About the same", "fr": "À peu près pareil", "rw": "Kimwe n'ejo"}},
-      {"value": "worse", "label": {"en": "Worse", "fr": "Moins bien", "rw": "Nabi kurusha ejo"}}
+      {
+        "value": "better",
+        "label": {
+          "en": "Better",
+          "fr": "Mieux",
+          "rw": "Neza kurusha ejo"
+        }
+      },
+      {
+        "value": "same",
+        "label": {
+          "en": "About the same",
+          "fr": "À peu près pareil",
+          "rw": "Kimwe n'ejo"
+        }
+      },
+      {
+        "value": "worse",
+        "label": {
+          "en": "Worse",
+          "fr": "Moins bien",
+          "rw": "Nabi kurusha ejo"
+        }
+      }
     ],
     "urgent_values": [],
     "source": "Daily_CheckIn_Questions draft in the team tracker. Answer options added by the developer: Erica to confirm. French and Kinyarwanda are AI drafts awaiting a native reviewer."
@@ -26,8 +47,95 @@
       "rw": "Hari ibimenyetso bishya ufite, cyangwa hari ikintu cyiyongereye mu buryo butunguranye?"
     },
     "choices": [],
-    "urgent_values": [true],
-    "source": "Daily_CheckIn_Questions draft in the team tracker. A Yes shows urgent guidance straight away. French and Kinyarwanda are AI drafts awaiting a native reviewer."
+    "urgent_values": [
+      true
+    ],
+    "follow_up": [
+      {
+        "value": "face",
+        "label": {
+          "en": "Face drooping on one side",
+          "fr": "Visage qui tombe d'un côté",
+          "rw": "Mu maso harenda ku ruhande rumwe"
+        }
+      },
+      {
+        "value": "arm-leg",
+        "label": {
+          "en": "Weakness or numbness in an arm or leg",
+          "fr": "Faiblesse ou engourdissement d'un bras ou d'une jambe",
+          "rw": "Intege nke cyangwa kunanirwa mu kuboko cyangwa ukuguru"
+        }
+      },
+      {
+        "value": "speech",
+        "label": {
+          "en": "Slurred or muddled speech, or trouble understanding",
+          "fr": "Parole confuse ou difficulté à comprendre",
+          "rw": "Kuvuga nabi cyangwa kugorwa no kumva"
+        }
+      },
+      {
+        "value": "vision",
+        "label": {
+          "en": "Trouble seeing, or double vision",
+          "fr": "Difficulté à voir ou vision double",
+          "rw": "Kutabona neza cyangwa kubona bibiri"
+        }
+      },
+      {
+        "value": "balance",
+        "label": {
+          "en": "Dizziness or loss of balance",
+          "fr": "Vertiges ou perte d'équilibre",
+          "rw": "Isereri cyangwa guta umurongo"
+        }
+      },
+      {
+        "value": "headache",
+        "label": {
+          "en": "Sudden, very bad headache",
+          "fr": "Mal de tête soudain et très fort",
+          "rw": "Kuribwa umutwe cyane mu buryo butunguranye"
+        }
+      },
+      {
+        "value": "confusion",
+        "label": {
+          "en": "Confusion or unusual sleepiness",
+          "fr": "Confusion ou somnolence inhabituelle",
+          "rw": "Kuyoberwa cyangwa gusinzira bidasanzwe"
+        }
+      },
+      {
+        "value": "swallowing",
+        "label": {
+          "en": "Trouble swallowing",
+          "fr": "Difficulté à avaler",
+          "rw": "Kugorwa no kumira"
+        }
+      },
+      {
+        "value": "chest",
+        "label": {
+          "en": "Chest pain or trouble breathing",
+          "fr": "Douleur dans la poitrine ou difficulté à respirer",
+          "rw": "Kuribwa mu gituza cyangwa guhumeka nabi"
+        }
+      },
+      {
+        "value": "fall",
+        "label": {
+          "en": "A fall",
+          "fr": "Une chute",
+          "rw": "Kugwa"
+        }
+      }
+    ],
+    "follow_up_when": [
+      true
+    ],
+    "source": "Daily_CheckIn_Questions draft in the team tracker. A Yes shows urgent guidance straight away. French and Kinyarwanda are AI drafts awaiting a native reviewer. Symptom list added by the developer as everyday words: needs clinical review."
   },
   {
     "code": "movement-vs-plan",
@@ -39,10 +147,38 @@
       "rw": "Imyitozo yawe yagenze ite ugereranyije na gahunda y'umuganga wawe?"
     },
     "choices": [
-      {"value": "easier", "label": {"en": "Easier than planned", "fr": "Plus facile que prévu", "rw": "Byoroshye kuruta uko byari biteganyijwe"}},
-      {"value": "as_planned", "label": {"en": "As planned", "fr": "Comme prévu", "rw": "Nk'uko byari biteganyijwe"}},
-      {"value": "harder", "label": {"en": "Harder than planned", "fr": "Plus difficile que prévu", "rw": "Bikomeye kuruta uko byari biteganyijwe"}},
-      {"value": "did_not_do", "label": {"en": "I did not do it", "fr": "Je ne l'ai pas fait", "rw": "Sinabikoze"}}
+      {
+        "value": "easier",
+        "label": {
+          "en": "Easier than planned",
+          "fr": "Plus facile que prévu",
+          "rw": "Byoroshye kuruta uko byari biteganyijwe"
+        }
+      },
+      {
+        "value": "as_planned",
+        "label": {
+          "en": "As planned",
+          "fr": "Comme prévu",
+          "rw": "Nk'uko byari biteganyijwe"
+        }
+      },
+      {
+        "value": "harder",
+        "label": {
+          "en": "Harder than planned",
+          "fr": "Plus difficile que prévu",
+          "rw": "Bikomeye kuruta uko byari biteganyijwe"
+        }
+      },
+      {
+        "value": "did_not_do",
+        "label": {
+          "en": "I did not do it",
+          "fr": "Je ne l'ai pas fait",
+          "rw": "Sinabikoze"
+        }
+      }
     ],
     "urgent_values": [],
     "source": "Daily_CheckIn_Questions draft in the team tracker. Answer options added by the developer: Erica to confirm. French and Kinyarwanda are AI drafts awaiting a native reviewer."

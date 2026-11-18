@@ -11,7 +11,7 @@ import pytest
 from django.db import IntegrityError, transaction
 from django.utils import timezone
 
-from apps.content.models import EducationItem, EducationTranslation, EmergencyContact, TalkPhrase
+from apps.content.models import EducationItem, EducationTranslation, EmergencyContact, TalkPhrase, Topic
 from apps.health.models import BPReading, CheckIn, CheckInQuestion, PlanTask, RecoveryPlan
 from tests.conftest import client_for
 
@@ -126,8 +126,9 @@ def _strings(node):
     if isinstance(node, str):
         yield node
     elif isinstance(node, dict):
-        for v in node.values():
-            yield from _strings(v)
+        for k, v in node.items():
+            if not k.endswith("_url"):  # links (e.g. video ids) are never shown as a number someone could dial
+                yield from _strings(v)
     elif isinstance(node, list):
         for v in node:
             yield from _strings(v)
@@ -161,6 +162,7 @@ def test_nothing_can_be_reviewed_without_a_named_reviewer_and_a_date():
         (EducationItem, {"slug": "x", "source_name": "s", "status": "reviewed"}),
         (CheckInQuestion, {"code": "x", "prompt": {"en": "?"}, "answer_type": "yes_no", "status": "reviewed"}),
         (TalkPhrase, {"code": "x", "category": "needs", "label": {"en": "x"}, "status": "reviewed"}),
+        (Topic, {"slug": "x", "name": {"en": "x"}, "status": "reviewed"}),
     ]:
         with pytest.raises(IntegrityError), transaction.atomic():
             model.objects.create(**kwargs)
@@ -170,6 +172,10 @@ def test_nothing_can_be_reviewed_without_a_named_reviewer_and_a_date():
         slug="signed", source_name="s", status="reviewed", reviewed_by_name="Dr Demo", reviewed_at=timezone.now()
     )
     assert ok.status == "reviewed"
+    topic_ok = Topic.objects.create(
+        slug="signed-topic", name={"en": "x"}, status="reviewed", reviewed_by_name="Dr Demo", reviewed_at=timezone.now()
+    )
+    assert topic_ok.status == "reviewed"
 
 
 @pytest.mark.django_db

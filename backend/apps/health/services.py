@@ -33,8 +33,8 @@ def _round(value):
 
 @transaction.atomic
 def save_checkin(subject, actor, date, cleaned):
-    """Create or replace the check-in for one day. `cleaned` is [(question, value, skipped)]."""
-    urgent = any((not skipped) and value in q.urgent_values for q, value, skipped in cleaned)
+    """Create or replace the check-in for one day. `cleaned` is [(question, value, skipped, detail)]."""
+    urgent = any((not skipped) and value in q.urgent_values for q, value, skipped, _ in cleaned)
     checkin, _ = CheckIn.objects.update_or_create(
         user=subject,
         date=date,
@@ -42,8 +42,8 @@ def save_checkin(subject, actor, date, cleaned):
     )
     checkin.answers.all().delete()
     CheckInAnswer.objects.bulk_create(
-        CheckInAnswer(checkin=checkin, question=q, value=None if skipped else value, skipped=skipped)
-        for q, value, skipped in cleaned
+        CheckInAnswer(checkin=checkin, question=q, value=None if skipped else value, skipped=skipped, detail=detail)
+        for q, value, skipped, detail in cleaned
     )
     return checkin
 
@@ -69,7 +69,7 @@ def build_summary(subject, days: int) -> dict:
         row = per_question.setdefault(
             a.question.code,
             {"question": a.question.code, "prompt": a.question.prompt.get("en", ""), "answered": 0, "skipped": 0,
-             "value_counts": Counter()},
+             "value_counts": Counter(), "follow_up_counts": Counter()},
         )  # fmt: skip
         if a.skipped:
             row["skipped"] += 1
@@ -79,8 +79,12 @@ def build_summary(subject, days: int) -> dict:
         if a.question.answer_type != CheckInQuestion.AnswerType.TEXT:
             key = ("yes" if a.value else "no") if isinstance(a.value, bool) else str(a.value)
             row["value_counts"][key] += 1
+        labels = {c["value"]: c.get("label", {}).get("en", c["value"]) for c in (a.question.follow_up or [])}
+        for choice in (a.detail or {}).get("choices", []):
+            row["follow_up_counts"][labels.get(choice, choice)] += 1
     for row in per_question.values():
         row["value_counts"] = dict(row["value_counts"])
+        row["follow_up_counts"] = dict(row["follow_up_counts"])
 
     notes = [
         {"at": r.taken_at, "source": "blood_pressure", "text": r.note}
@@ -94,6 +98,11 @@ def build_summary(subject, days: int) -> dict:
         {"at": a.checkin.submitted_at, "source": "daily_check_in", "text": a.value}
         for a in answers.filter(question__answer_type="text", skipped=False)
         if a.value
+    ]
+    notes += [
+        {"at": a.checkin.submitted_at, "source": "daily_check_in", "text": a.detail["other"]}
+        for a in answers
+        if a.detail and a.detail.get("other")
     ]
     notes.sort(key=lambda n: n["at"], reverse=True)
 

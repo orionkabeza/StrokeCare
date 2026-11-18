@@ -4,40 +4,28 @@
 import { html } from '../../dom.js'
 import { errorText } from '../../api.js'
 import { locale, t } from '../../i18n.js'
-import { barChart, icon, pageHeader } from '../../ui.js'
+import { weekCards } from '../../components/metric-card.js'
+import { icon, pageHeader } from '../../ui.js'
 
 export default async function progress(ctx) {
   const { base } = ctx
-  const s = { days: 7, data: null, loading: true, error: '' }
+  const s = { days: 7, data: null, week: null, loading: true, error: '' }
   const dayLabel = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString(locale.value, { weekday: 'short', day: 'numeric', month: 'short' })
 
   const view = () => {
     const d = s.data
-    const series = (key) => (d?.days ?? []).map((x) => ({ date: x.date, value: x[key] }))
-    const charts = d
-      ? [
-          { key: 'tasks_done', label: t('progress.tasks'), total: d.totals.tasks_done },
-          { key: 'doses_taken', label: t('progress.doses'), total: d.totals.doses_taken },
-          { key: 'mobility_minutes', label: t('progress.minutes'), total: d.totals.mobility_minutes },
-        ]
-      : []
     return html`<main class="page">
       ${pageHeader({ title: t('progress.title'), subtitle: t('progress.lead'), back: true })}
-      <div class="row" role="group" aria-label="${t('progress.title')}">
-        ${[7, 14, 30].map((n) => html`<button class="sc-chip" data-act="range" data-n="${n}" aria-pressed="${s.days === n ? 'true' : 'false'}">${t('progress.range', { n })}</button>`)}
-      </div>
       ${d?.current_phase ? html`<section class="sc-card pad stack-s"><span class="sc-eyebrow">${t('recovery.stage')}</span><strong>${d.current_phase.name}</strong></section>` : ''}
       ${d
-        ? html`${charts.map(
-              (c) => html`<section class="sc-card pad stack-s">
-                <div class="row-between"><strong>${c.label}</strong><span class="muted">${c.total}</span></div>
-                ${barChart(series(c.key), t('progress.chartLabel', { what: c.label, n: s.days }))}
-              </section>`,
-            )}
+        ? html`${s.week ? html`<section class="stack" aria-label="${t('week.title')}"><h2>${t('week.title')}</h2>${weekCards(s.week, ctx.link)}</section>` : ''}
             <p class="row small muted" style="flex-wrap: nowrap; align-items: flex-start">${icon('info', 18)}<span>${t('progress.chart')} ${d.note}</span></p>
             <section class="sc-card pad stack-s" style="overflow-x: auto">
               <h2>${t('progress.table')}</h2>
-              <table class="small" style="width: 100%; border-collapse: collapse">
+              <div class="row" role="group" aria-label="${t('progress.table')}">
+                ${[7, 14, 30].map((n) => html`<button class="sc-chip" data-act="range" data-n="${n}" aria-pressed="${s.days === n ? 'true' : 'false'}">${t('progress.range', { n })}</button>`)}
+              </div>
+              <table class="small progress-table" style="width: 100%; border-collapse: collapse">
                 <caption class="visually-hidden">${t('progress.table')}</caption>
                 <thead><tr style="text-align: left">
                   <th scope="col">${t('progress.day')}</th><th scope="col">${t('progress.colTasks')}</th><th scope="col">${t('progress.colDoses')}</th>
@@ -71,7 +59,10 @@ export default async function progress(ctx) {
   async function load() {
     s.loading = true
     try {
-      s.data = await ctx.api.get(`${base}/progress/`, { days: s.days })
+      ;[s.data, s.week] = await Promise.all([
+        ctx.api.get(`${base}/progress/`, { days: s.days }),
+        s.week ?? ctx.api.get(`${base}/week/`),
+      ])
       s.error = ''
     } catch (e) {
       s.error = errorText(e)

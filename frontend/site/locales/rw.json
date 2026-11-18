@@ -116,7 +116,9 @@
     "thanks": "Murakoze. Ikurikirana ryawe ryabitswe.",
     "yourWords": "Mu magambo yawe",
     "source": "ikurikirana ry'itsinda",
-    "oneScreen": "Subiza ibyo ushaka ureke ibindi. Ibisigaye ubusa byoherezwa nk'ibyasimbutswe."
+    "oneScreen": "Subiza ibyo ushaka ureke ibindi. Ibisigaye ubusa byoherezwa nk'ibyasimbutswe.",
+    "whichSymptoms": "Ibihe? Hitamo ibihuye (si ngombwa)",
+    "otherSymptom": "Hari ikindi? Bivuge mu magambo yawe"
   },
   "emergency": {
     "button": "Ubutabazi",
@@ -127,7 +129,16 @@
     "fallback": "Niba utekereza ko wowe cyangwa undi muntu uri hafi yawe ashobora kuba afite stroke cyangwa ikindi kibazo cyihutirwa, hamagara serivisi z'ubutabazi zo mu gace kawe ubu nonaha. Ntutegereze iyi porogaramu.",
     "numbers": "Nimero z'ubutabazi",
     "noVerified": "Nta nimero yemejwe iraboneka mu gace kawe. Hamagara serivisi z'ubutabazi zo mu gace kawe nk'uko usanzwe ubigenza.",
-    "verifiedBy": "Byemejwe na {name}"
+    "verifiedBy": "Byemejwe na {name}",
+    "myPeople": "Abantu bo guhamagara",
+    "myPeopleHint": "Abantu bawe, nk'umuvandimwe. Banza uhamagare serivisi y'ubutabazi.",
+    "addPerson": "Ongeraho umuntu wo guhamagara",
+    "name": "Izina",
+    "relation": "Uwo ari we (si ngombwa)",
+    "relationExample": "Urugero: umukobwa wanjye",
+    "phone": "Nimero ya telefoni",
+    "remove": "Kuramo {name}",
+    "removeConfirm": "Kuramo {name} mu bantu bo guhamagara?"
   },
   "bp": {
     "title": "Umuvuduko w'amaraso",
@@ -182,6 +193,7 @@
     "again": "Ongera uvuge",
     "voiceOn": "Telefoni yawe isoma amagambo mu ijwi riranguruye.",
     "voiceOff": "Telefoni yawe nta jwi ifite ry'uru rurimi, bityo amagambo yerekanwa mu nyuguti nini.",
+    "practiceLead": "Urashaka kugerageza kubivuga ubwawe? Ifatire witoze. Ni wowe wenyine ushobora kubyumva.",
     "cat": {
       "needs": "Nkeneye",
       "feelings": "Ndumva",
@@ -195,7 +207,20 @@
     "lead": "Buri nyandiko yerekana aho ivuye n'uko yasuzumwe.",
     "empty": "Nta kirimo ubu.",
     "source": "Inkomoko",
-    "fellBack": "Ntiraboneka mu rurimi rwawe, bityo yerekanwe mu Cyongereza."
+    "fellBack": "Ntiraboneka mu rurimi rwawe, bityo yerekanwe mu Cyongereza.",
+    "topics": "Ingingo",
+    "allTopics": "Byose",
+    "moreTopics": "Ibindi",
+    "videosCount": "Videwo {n} | Videwo {n}",
+    "toReadCount": "{n} byo gusoma",
+    "video": "Videwo",
+    "read": "Soma",
+    "minutes": "Iminota {n}",
+    "playVideoSize": "Kanda videwo ({size})",
+    "needsConnection": "Iyi videwo ikeneye interineti. Inyandiko ikurikira iracyashobora gusomwa.",
+    "transcript": "Inyandiko ikurikira ni na yo nyandiko yuzuye ya videwo.",
+    "playVideo": "Kanda videwo",
+    "fromYoutube": "Videwo ya {source} kuri YouTube. Ibisobanuro biri hasi."
   },
   "visit": {
     "title": "Ibibazo byo kubaza muganga",
@@ -596,6 +621,9 @@
     "none": "Nta nteruro bwite ziraboneka.",
     "mine": "Izanjye",
     "manage": "Ongeraho cyangwa ukureho interuro zanjye",
+    "practice": "Ibyafashwe byo kwitoza",
+    "practiceLead": "Ifatire uvuga interuro, kugira ngo witoze. Ni wowe wenyine ushobora kubyumva.",
+    "practiceEmpty": "Nta kintu cyo kwitoza kiraboneka.",
     "icons": {
       "chat-circle": "Kuvuga",
       "drop": "Amazi",
@@ -605,6 +633,33 @@
       "hand-heart": "Ubufasha",
       "phone-call": "Guhamagara",
       "users-three": "Umuryango"
+    }
+  },
+  "week": {
+    "title": "Iki cyumweru",
+    "today": "Uyu munsi",
+    "none": "nta cyanditswe",
+    "noneThisWeek": "Nta na kimwe iki cyumweru",
+    "latest": "Iheruka · {when}",
+    "bp": "Umuvuduko w'amaraso",
+    "pulse": "Gutera k'umutima",
+    "move": "Kwimuka",
+    "meds": "Imiti yafashwe",
+    "checkin": "Isuzuma ry'umunsi",
+    "tasks": "Imirimo y'igenamigambi",
+    "min": "min",
+    "day": "umunsi",
+    "days": "iminsi",
+    "dosesToday": "Imiti yanditswe uyu munsi",
+    "checkinsWeek": "Isuzuma iki cyumweru",
+    "tasksToday": "Imirimo yakozwe uyu munsi",
+    "aria": {
+      "bp": "{lo} kugeza {hi} mmHg",
+      "pulse": "{list} bpm",
+      "minutes": "iminota {n}",
+      "doses": "{taken} kuri {due} yanditswe",
+      "checkin": "isuzuma ryoherejwe",
+      "tasks": "{done} kuri {n} yakozwe"
     }
   }
 }

@@ -32,7 +32,7 @@ const sources = () =>
     .map((f) => read(`js/${f}`).split('\n').filter((line) => !/^\s*(\/\/|\*|\/\*)/.test(line)).join('\n'))
 
 // Messages that deliberately have a singular and a plural form ("1 person | 2 people"), written as `one | other`.
-const PLURAL = new Set(['doctor.people', 'mobility.entries'])
+const PLURAL = new Set(['doctor.people', 'mobility.entries', 'learn.videosCount'])
 
 describe('translations', () => {
   for (const [name, messages] of [['fr', fr], ['rw', rw]]) {

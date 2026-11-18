@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" width="600" height="720" aria-hidden="true">
+<defs>
+  <radialGradient id="body" cx="0.38" cy="0.32" r="0.75">
+    <stop offset="0" stop-color="#FF6E3E"/><stop offset="0.35" stop-color="#E8401C"/>
+    <stop offset="0.75" stop-color="#C42B12"/><stop offset="1" stop-color="#8A1A0A"/>
+  </radialGradient>
+  <radialGradient id="atrium" cx="0.4" cy="0.3" r="0.8">
+    <stop offset="0" stop-color="#F7663A"/><stop offset="0.6" stop-color="#D4381A"/><stop offset="1" stop-color="#9C1F0C"/>
+  </radialGradient>
+  <linearGradient id="vessel" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#B8290F"/><stop offset="0.35" stop-color="#F0603A"/><stop offset="0.6" stop-color="#E2441F"/><stop offset="1" stop-color="#9E200B"/>
+  </linearGradient>
+  <linearGradient id="pulm" x1="0" y1="1" x2="1" y2="0">
+    <stop offset="0" stop-color="#C9361A"/><stop offset="0.5" stop-color="#F06640"/><stop offset="1" stop-color="#C8381A"/>
+  </linearGradient>
+  <linearGradient id="shade" x1="0.2" y1="0" x2="0.9" y2="1">
+    <stop offset="0.45" stop-color="#5A0E04" stop-opacity="0"/><stop offset="1" stop-color="#5A0E04" stop-opacity="0.55"/>
+  </linearGradient>
+  <filter id="blur8" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+  <filter id="blur3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+  <filter id="blur18" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
+  <clipPath id="bodyClip"><path id="bodyPath" d="M210 300 C150 318 112 392 122 470 C133 552 186 620 246 666 C268 682 292 676 312 652 C402 572 482 478 492 388 C499 324 470 282 420 272 C362 262 306 296 272 296 C248 296 228 294 210 300 Z"/></clipPath>
+<linearGradient id="rim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFB892" stop-opacity="0.7"/><stop offset="0.12" stop-color="#FFB892" stop-opacity="0"/></linearGradient>
+</defs>
+<ellipse cx="300" cy="700" rx="150" ry="14" fill="#3A1A10" opacity="0.16" filter="url(#blur8)"/>
+<g transform="rotate(-9 300 400) translate(10 -6)">
+<!-- descending aorta (behind) -->
+<path d="M430 170 C455 200 462 240 455 300" stroke="#9E200B" stroke-width="58" fill="none" stroke-linecap="round"/>
+<!-- superior vena cava (behind, left) -->
+<path d="M232 300 L226 118" stroke="url(#vessel)" stroke-width="54" fill="none" stroke-linecap="round"/>
+<ellipse cx="226" cy="114" rx="27" ry="10" fill="#7E1808"/>
+<!-- arch branches -->
+<path d="M318 150 C314 110 312 80 318 46" stroke="url(#vessel)" stroke-width="32" fill="none" stroke-linecap="round"/>
+<path d="M360 128 C362 95 366 70 376 36" stroke="url(#vessel)" stroke-width="28" fill="none" stroke-linecap="round"/>
+<path d="M398 136 C408 105 420 82 438 56" stroke="url(#vessel)" stroke-width="26" fill="none" stroke-linecap="round"/>
+<ellipse cx="318" cy="44" rx="16" ry="6" fill="#7E1808"/>
+<ellipse cx="377" cy="35" rx="14" ry="5" fill="#7E1808" transform="rotate(12 377 35)"/>
+<ellipse cx="439" cy="55" rx="13" ry="5" fill="#7E1808" transform="rotate(30 439 55)"/>
+<!-- aortic arch -->
+<path d="M300 320 C288 220 300 150 362 132 C414 118 444 150 446 200" stroke="url(#vessel)" stroke-width="76" fill="none" stroke-linecap="round"/>
+<path d="M286 270 C282 200 300 158 352 144" stroke="#FFB08A" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.55" filter="url(#blur3)"/>
+<!-- right atrium (viewer's left) -->
+<path d="M248 236 C186 222 128 262 130 330 C132 388 176 410 222 384 C256 364 270 300 248 236 Z" fill="url(#atrium)"/>
+<path d="M160 290 C170 266 192 254 214 252" stroke="#FFC2A3" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.5" filter="url(#blur3)"/>
+<!-- left auricle (viewer's right) -->
+<path d="M430 262 C470 250 512 266 506 304 C500 336 470 344 450 330 C436 320 424 290 430 262 Z" fill="url(#atrium)"/>
+<!-- ventricles -->
+<use href="#bodyPath" fill="url(#body)"/>
+<g clip-path="url(#bodyClip)">
+  <use href="#bodyPath" fill="url(#shade)"/>
+  <use href="#bodyPath" fill="url(#rim)"/>
+  <g fill="none" stroke="#7A1406" stroke-linecap="round" opacity="0.13" filter="url(#blur3)"><path d="M150 330 C170 450 200 560 250 650" stroke-width="5"/><path d="M180 338 C200 456 224 560 264 650" stroke-width="5"/><path d="M210 346 C230 462 248 560 278 650" stroke-width="5"/><path d="M240 354 C260 468 272 560 292 650" stroke-width="5"/><path d="M270 362 C290 474 296 560 306 650" stroke-width="5"/><path d="M300 370 C320 480 320 560 320 650" stroke-width="5"/><path d="M330 378 C350 486 344 560 334 650" stroke-width="5"/><path d="M360 386 C380 492 368 560 348 650" stroke-width="5"/><path d="M390 394 C410 498 392 560 362 650" stroke-width="5"/><path d="M420 402 C440 504 416 560 376 650" stroke-width="5"/></g>
+  <path d="M120 470 C140 560 200 630 260 680" stroke="#5A0E04" stroke-width="40" fill="none" opacity="0.25" filter="url(#blur18)"/>
+  <ellipse cx="225" cy="390" rx="70" ry="95" fill="#FFD2BC" opacity="0.28" filter="url(#blur18)" transform="rotate(-20 225 390)"/>
+</g>
+<!-- pulmonary trunk (front) -->
+<path d="M330 360 C340 290 372 240 430 218" stroke="url(#pulm)" stroke-width="64" fill="none" stroke-linecap="round"/>
+<path d="M420 222 C462 206 500 214 536 238" stroke="url(#pulm)" stroke-width="40" fill="none" stroke-linecap="round"/>
+<ellipse cx="538" cy="240" rx="9" ry="20" fill="#7E1808" transform="rotate(30 538 240)"/>
+<path d="M326 330 C336 284 360 252 398 234" stroke="#FFB896" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.6" filter="url(#blur3)"/>
+<!-- coronary vessels -->
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- veins: dark casing then lighter core, tapering by segment -->
+  <g stroke="#1F3F66">
+    <path d="M338 384 C337 398 334 410 330 425" stroke-width="12"/>
+    <path d="M330 425 C322 470 312 510 298 550" stroke-width="10"/>
+    <path d="M298 550 C288 580 278 600 262 628" stroke-width="7"/>
+    <path d="M328 440 C300 452 276 468 246 470 C230 471 214 478 202 490" stroke-width="7"/>
+    <path d="M318 492 C296 512 274 530 262 556 C254 572 244 582 232 590" stroke-width="5.5"/>
+    <path d="M334 410 C366 418 392 438 420 440 C440 442 454 452 466 466" stroke-width="7"/>
+    <path d="M312 520 C340 532 360 548 376 572 C384 584 394 590 404 594" stroke-width="5"/>
+    <path d="M420 440 C428 470 426 500 418 524" stroke-width="4"/>
+    <path d="M246 470 C236 490 232 512 236 536" stroke-width="3.5"/>
+  </g>
+  <g stroke="#3D78B0">
+    <path d="M338 384 C337 398 334 410 330 425" stroke-width="7"/>
+    <path d="M330 425 C322 470 312 510 298 550" stroke-width="6"/>
+    <path d="M298 550 C288 580 278 600 262 628" stroke-width="4"/>
+    <path d="M328 440 C300 452 276 468 246 470 C230 471 214 478 202 490" stroke-width="4"/>
+    <path d="M318 492 C296 512 274 530 262 556 C254 572 244 582 232 590" stroke-width="3"/>
+    <path d="M334 410 C366 418 392 438 420 440 C440 442 454 452 466 466" stroke-width="4"/>
+    <path d="M312 520 C340 532 360 548 376 572 C384 584 394 590 404 594" stroke-width="2.5"/>
+  </g>
+  <g stroke="#9FC6EA" opacity="0.7">
+    <path d="M335 386 C334 398 331 402 327 427 C319 470 309 510 296 548" stroke-width="1.8"/>
+    <path d="M330 412 C362 420 390 438 418 437" stroke-width="1.4"/>
+  </g>
+  <!-- arteries -->
+  <g stroke="#8E1C0A">
+    <path d="M352 388 C350 420 344 450 330 500 C320 540 306 580 288 616" stroke-width="6"/>
+    <path d="M226 382 C206 420 198 452 200 490 C202 520 212 548 226 570" stroke-width="5.5"/>
+    <path d="M204 440 C222 456 238 474 244 500" stroke-width="3.5"/>
+    <path d="M340 470 C362 486 378 500 388 524" stroke-width="3.5"/>
+    <path d="M440 330 C458 370 468 410 466 450" stroke-width="5"/>
+  </g>
+  <g stroke="#E2583A" opacity="0.8">
+    <path d="M351 390 C349 420 343 450 329 500" stroke-width="2"/>
+    <path d="M225 384 C205 422 197 454 199 490" stroke-width="2"/>
+  </g>
+</g>
+<!-- specular highlights -->
+<path d="M170 420 C176 380 196 350 222 334" stroke="#FFFFFF" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.6" filter="url(#blur3)"/>
+<path d="M392 300 C420 296 448 306 466 328" stroke="#FFFFFF" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.55" filter="url(#blur3)"/>
+<ellipse cx="200" cy="450" rx="10" ry="24" fill="#FFFFFF" opacity="0.35" filter="url(#blur3)" transform="rotate(20 200 450)"/>
+</g>
+</svg>

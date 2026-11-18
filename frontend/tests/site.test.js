@@ -27,12 +27,14 @@ describe('the page and the scripts follow the content security policy', () => {
     for (const file of ['index.html', ...scripts]) assert.equal(/\son[a-z]+\s*=\s*["']/.test(read(file)), false, file)
   })
 
-  it('the only outside addresses are Google Fonts', () => {
+  // Must match the backend's Content-Security-Policy: Google Fonts, plus YouTube's no-cookie player and thumbnails
+  // for Learn videos (the player loads only after a tap).
+  it('the only outside addresses are Google Fonts and the Learn video player', () => {
     for (const file of ['index.html', ...scripts, 'css/app.css', 'css/tokens.css']) {
       for (const m of read(file).matchAll(/https?:\/\/([a-z0-9.-]+)/g)) {
         if (/^(www\.)?w3\.org$/.test(m[1])) continue // XML namespace in SVG, not a request
         if (m[1] === 'localhost') continue // api.js: the base address used only when there is no browser (these tests)
-        assert.ok(['fonts.googleapis.com', 'fonts.gstatic.com'].includes(m[1]), `${file}: ${m[0]}`)
+        assert.ok(['fonts.googleapis.com', 'fonts.gstatic.com', 'www.youtube-nocookie.com', 'i.ytimg.com'].includes(m[1]), `${file}: ${m[0]}`)
       }
     }
   })
@@ -57,7 +59,7 @@ describe('the service worker', () => {
   })
 
   it('stores only public content: education, the talk board, emergency guidance and the visit checklist', () => {
-    const source = /const PUBLIC_API = \/(.*)\/\n/.exec(sw)[1]
+    const source = /const PUBLIC_API = \/(.*)\/\r?\n/.exec(sw)[1]
     const publicApi = new RegExp(source)
     for (const p of ['/api/v1/education/articles/', '/api/v1/talk-board/', '/api/v1/emergency/', '/api/v1/home-visit-checklist/'])
       assert.ok(publicApi.test(p), p)
@@ -74,7 +76,7 @@ describe('the service worker', () => {
   })
 
   it('never stores the API, the admin site or health checks in the app-shell cache', () => {
-    const never = new RegExp(/const NEVER_CACHED = \/(.*)\/\n/.exec(sw)[1])
+    const never = new RegExp(/const NEVER_CACHED = \/(.*)\/\r?\n/.exec(sw)[1])
     for (const p of ['/api/v1/me/', '/admin/login/', '/static/admin/css/base.css', '/healthz']) assert.ok(never.test(p), p)
     assert.equal(never.test('/js/main.js'), false)
   })

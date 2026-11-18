@@ -116,7 +116,9 @@
     "thanks": "Merci. Votre suivi est enregistré.",
     "yourWords": "Avec vos mots",
     "source": "suivi de l'équipe",
-    "oneScreen": "Répondez à ce que vous voulez et passez le reste. Ce qui reste vide est envoyé comme passé."
+    "oneScreen": "Répondez à ce que vous voulez et passez le reste. Ce qui reste vide est envoyé comme passé.",
+    "whichSymptoms": "Lesquels ? Cochez ceux qui correspondent (facultatif)",
+    "otherSymptom": "Autre chose ? Dites-le avec vos mots"
   },
   "emergency": {
     "button": "Urgence",
@@ -127,7 +129,16 @@
     "fallback": "Si vous pensez que vous, ou une personne près de vous, faites peut-être un AVC ou une autre urgence, contactez immédiatement les services d'urgence locaux. N'attendez pas cette application.",
     "numbers": "Numéros d'urgence",
     "noVerified": "Aucun numéro vérifié pour votre région pour l'instant. Appelez les services d'urgence locaux comme vous le feriez d'habitude.",
-    "verifiedBy": "Vérifié par {name}"
+    "verifiedBy": "Vérifié par {name}",
+    "myPeople": "Personnes à appeler",
+    "myPeopleHint": "Vos propres contacts, par exemple un proche. Appelez d'abord le service d'urgence.",
+    "addPerson": "Ajouter une personne à appeler",
+    "name": "Nom",
+    "relation": "Qui est-ce (facultatif)",
+    "relationExample": "Par exemple : ma fille",
+    "phone": "Numéro de téléphone",
+    "remove": "Retirer {name}",
+    "removeConfirm": "Retirer {name} de vos personnes à appeler ?"
   },
   "bp": {
     "title": "Tension artérielle",
@@ -182,6 +193,7 @@
     "again": "Redire",
     "voiceOn": "Votre téléphone lit les mots à voix haute.",
     "voiceOff": "Votre téléphone n'a pas de voix pour cette langue : les mots sont affichés en grand.",
+    "practiceLead": "Vous voulez essayer de le dire vous-même ? Enregistrez-vous pour vous entraîner. Vous seul pouvez l'entendre.",
     "cat": {
       "needs": "J'ai besoin",
       "feelings": "Je ressens",
@@ -195,7 +207,20 @@
     "lead": "Chaque contenu indique sa source et s'il a été relu.",
     "empty": "Rien pour l'instant.",
     "source": "Source",
-    "fellBack": "Pas encore disponible dans votre langue : affiché en anglais."
+    "fellBack": "Pas encore disponible dans votre langue : affiché en anglais.",
+    "topics": "Sujets",
+    "allTopics": "Tous",
+    "moreTopics": "Plus",
+    "videosCount": "{n} vidéo | {n} vidéos",
+    "toReadCount": "{n} à lire",
+    "video": "Vidéo",
+    "read": "Lire",
+    "minutes": "{n} min",
+    "playVideoSize": "Lire la vidéo ({size})",
+    "needsConnection": "Cette vidéo nécessite une connexion. Le texte ci-dessous reste disponible.",
+    "transcript": "Le texte ci-dessous sert aussi de transcription de la vidéo.",
+    "playVideo": "Lire la vidéo",
+    "fromYoutube": "Vidéo de {source} sur YouTube. Les notes sur la vidéo sont ci-dessous."
   },
   "visit": {
     "title": "Questions pour ma visite",
@@ -596,6 +621,9 @@
     "none": "Aucune phrase personnelle pour l'instant.",
     "mine": "Les miennes",
     "manage": "Ajouter ou retirer mes phrases",
+    "practice": "Enregistrements d'entraînement",
+    "practiceLead": "Enregistrez-vous en train de dire une phrase, pour vous entraîner. Vous seul pouvez les écouter.",
+    "practiceEmpty": "Aucun enregistrement d'entraînement pour l'instant.",
     "icons": {
       "chat-circle": "Parler",
       "drop": "Eau",
@@ -605,6 +633,33 @@
       "hand-heart": "Aide",
       "phone-call": "Appeler",
       "users-three": "Famille"
+    }
+  },
+  "week": {
+    "title": "Cette semaine",
+    "today": "Aujourd'hui",
+    "none": "rien de noté",
+    "noneThisWeek": "Rien cette semaine",
+    "latest": "Dernière · {when}",
+    "bp": "Tension artérielle",
+    "pulse": "Pouls",
+    "move": "Mouvement",
+    "meds": "Prises de médicaments",
+    "checkin": "Suivis",
+    "tasks": "Tâches du plan",
+    "min": "min",
+    "day": "jour",
+    "days": "jours",
+    "dosesToday": "Prises marquées aujourd'hui",
+    "checkinsWeek": "Suivis cette semaine",
+    "tasksToday": "Tâches faites aujourd'hui",
+    "aria": {
+      "bp": "{lo} à {hi} mmHg",
+      "pulse": "{list} bpm",
+      "minutes": "{n} minutes",
+      "doses": "{taken} prises marquées sur {due}",
+      "checkin": "suivi envoyé",
+      "tasks": "{done} tâches faites sur {n}"
     }
   }
 }

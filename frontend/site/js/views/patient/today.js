@@ -4,7 +4,8 @@
 import { errorText } from '../../api.js'
 import { html } from '../../dom.js'
 import { locale, t } from '../../i18n.js'
-import { icon, progressRing, toast } from '../../ui.js'
+import { weekCards } from '../../components/metric-card.js'
+import { icon, pauseHeroOffscreen, progressRing, toast } from '../../ui.js'
 
 const tile = (to, delay, iconName, weight, accent, title, sub) => html`<a href="${to}" class="sc-card sc-rise pad stack-s" style="text-decoration: none; color: var(--ink); animation-delay: ${delay}ms">
   <span class="sc-iconbox ${accent ? 'sc-iconbox-accent' : ''}">${icon(iconName, 28, weight)}</span>
@@ -13,7 +14,7 @@ const tile = (to, delay, iconName, weight, accent, title, sub) => html`<a href="
 const more = (to, iconName, label) => html`<a href="${to}" class="sc-card pad row" style="text-decoration: none; color: var(--ink)">${icon(iconName, 24, 'duotone')}<strong>${label}</strong></a>`
 
 export default async function today(ctx) {
-  const s = { plan: null, meds: null, lastCheckin: null, lastReading: null, stage: null, comingUp: [], unread: 0, loaded: false }
+  const s = { plan: null, meds: null, lastCheckin: null, lastReading: null, stage: null, comingUp: [], unread: 0, week: null, loaded: false }
 
   const view = () => {
     const todayDate = s.plan?.date
@@ -27,23 +28,25 @@ export default async function today(ctx) {
     const dateLabel = new Date().toLocaleDateString(locale.value, { weekday: 'long', day: 'numeric', month: 'long' })
     const dosesLine = t('today.dosesLine', { n: s.meds?.doses_marked_taken ?? 0, total: s.meds?.doses_due ?? 0 })
     return html`<main class="page">
-      <section class="hero-head sc-hero">
-        <div class="sc-rise stack-s"><p class="muted" style="font-weight: 600">${dateLabel}</p><h1 style="font-size: 1.9rem">${greeting}</h1></div>
-        ${!s.loaded
-          ? html`<div class="sc-glass row pad" style="flex-wrap: nowrap" aria-busy="true">
-              <span class="sc-skeleton" style="width: 6rem; height: 6rem; border-radius: 50%; opacity: 0.35"></span>
-              <span class="stack-s" style="flex-grow: 1"><span class="sc-skeleton" style="height: 1.1rem; opacity: 0.35"></span><span class="sc-skeleton" style="height: 0.9rem; width: 80%; opacity: 0.35"></span></span>
-            </div>`
-          : html`<div class="sc-glass sc-rise row pad" style="animation-delay: 80ms; flex-wrap: nowrap">
-              ${progressRing(done, total)}
-              <div class="stack-s">
-                <strong style="font-size: 1.1rem">${t('today.soFar')}</strong>
-                <span class="muted small">${t('today.tasksLine', { n: tasksDone, total: tasks.length })}</span>
-                <span class="muted small">${dosesLine}</span>
-                <span class="muted small">${checkedIn ? t('today.checkinDone') : t('today.checkinNotYet')}</span>
-              </div>
-            </div>`}
+      <section class="hero-head">
+        <img src="/img/hero-heart.svg" alt="" class="hero-illustration" />
+        <div class="sc-rise stack-s"><p class="muted" style="font-size: 1.1rem; font-weight: 500">${dateLabel}</p><h1 style="font-size: 1.75rem">${greeting}</h1></div>
       </section>
+
+      ${!s.loaded
+        ? html`<div class="sc-card sc-card-glass row pad" style="flex-wrap: nowrap" aria-busy="true">
+            <span class="sc-skeleton" style="width: 6rem; height: 6rem; border-radius: 50%"></span>
+            <span class="stack-s" style="flex-grow: 1"><span class="sc-skeleton" style="height: 1.1rem"></span><span class="sc-skeleton" style="height: 0.9rem; width: 80%"></span></span>
+          </div>`
+        : html`<div class="sc-card sc-card-glass sc-rise row pad" style="animation-delay: 80ms; flex-wrap: nowrap">
+            ${progressRing(done, total)}
+            <div class="stack-s">
+              <strong style="font-size: 1.1rem">${t('today.soFar')}</strong>
+              <span class="muted small">${t('today.tasksLine', { n: tasksDone, total: tasks.length })}</span>
+              <span class="muted small">${dosesLine}</span>
+              <span class="muted small">${checkedIn ? t('today.checkinDone') : t('today.checkinNotYet')}</span>
+            </div>
+          </div>`}
 
       <nav class="grid-2" aria-label="${t('today.quick')}">
         ${tile('/p/me/checkin', 120, 'clipboard-text', 'duotone', false, t('checkin.title'), checkedIn ? t('today.checkinDone') : t('checkin.short'))}
@@ -52,7 +55,9 @@ export default async function today(ctx) {
         ${tile('/talk', 240, 'chat-circle-text', 'duotone', false, t('talk.title'), t('talk.short'))}
       </nav>
 
-      ${s.stage ? html`<a href="/p/me/recovery" class="banner" style="text-decoration: none; color: var(--ink)">${icon('target', 22)}${t('today.stage', { name: s.stage.name })}</a>` : ''}
+      ${s.week ? html`<section class="stack" aria-label="${t('week.title')}"><h2 class="sc-eyebrow" style="font-size: 0.85rem">${t('week.title')}</h2>${weekCards(s.week, (page) => `/p/me/${page}`)}</section>` : ''}
+
+      ${s.stage ? html`<a href="/p/me/recovery" class="sc-banner-info" style="text-decoration: none">${icon('target', 22)}${t('today.stage', { name: s.stage.name })}</a>` : ''}
       ${s.comingUp.length
         ? html`<section class="stack-s" aria-label="${t('today.comingUp')}">
             <h2 class="sc-eyebrow" style="font-size: 0.85rem">${t('today.comingUp')}</h2>
@@ -64,7 +69,7 @@ export default async function today(ctx) {
             )}
           </section>`
         : ''}
-      ${s.unread ? html`<a href="/p/me/messages" class="banner" style="text-decoration: none; color: var(--ink)">${icon('chat-circle-text', 22)}${t('today.unread', { n: s.unread })}</a>` : ''}
+      ${s.unread ? html`<a href="/p/me/messages" class="sc-banner-info" style="text-decoration: none">${icon('chat-circle-text', 22)}${t('today.unread', { n: s.unread })}</a>` : ''}
 
       <nav class="stack-s" aria-label="${t('today.more')}">
         <h2 class="sc-eyebrow" style="font-size: 0.85rem">${t('today.more')}</h2>
@@ -88,6 +93,7 @@ export default async function today(ctx) {
     </main>`
   }
   const redraw = () => ctx.draw(view())
+  ctx.afterDraw(() => pauseHeroOffscreen(ctx))
   redraw()
 
   const results = await Promise.allSettled([
@@ -98,8 +104,9 @@ export default async function today(ctx) {
     ctx.api.get('/patients/me/phases/'),
     ctx.api.get('/me/reminders/upcoming/'),
     ctx.api.get('/inbox/'),
+    ctx.api.get('/patients/me/week/'),
   ])
-  const [p, m, c, r, ph, up, inbox] = results.map((x) => (x.status === 'fulfilled' ? x.value : null))
+  const [p, m, c, r, ph, up, inbox, week] = results.map((x) => (x.status === 'fulfilled' ? x.value : null))
   s.plan = p ?? { has_plan: false, tasks: [] }
   s.meds = m
   s.lastCheckin = c?.results?.[0] ?? null
@@ -109,6 +116,7 @@ export default async function today(ctx) {
   const horizon = Date.now() + 36 * 3600 * 1000
   s.comingUp = (up?.results ?? []).filter((u) => new Date(u.next_at).getTime() <= horizon).slice(0, 4)
   s.unread = inbox?.results?.[0]?.unread ?? 0
+  s.week = week
   s.loaded = true
   redraw()
 

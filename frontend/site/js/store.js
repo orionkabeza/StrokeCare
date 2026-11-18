@@ -138,6 +138,7 @@ export const prefs = {
     root.dataset.font = v.easy_read_font ? 'easy' : 'standard'
     root.dataset.motion = v.reduce_motion ? 'reduce' : 'full'
     root.dataset.hand = v.one_handed_layout ? 'one' : 'two'
+    root.dataset.lowData = v.low_data_mode ? 'true' : 'false'
     root.style.fontSize = `${v.text_scale}%`
   },
 

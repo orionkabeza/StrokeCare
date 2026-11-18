@@ -24,6 +24,28 @@ def _reviewed_needs_signoff(name):
     )
 
 
+class Topic(models.Model):
+    """One of the nine stroke-related topics the Learn page groups education by.
+
+    Topic names are medical content like everything else here: drafted, shown with their review state, and
+    never hidden for being unreviewed (the same rule as EducationItem and TalkPhrase).
+    """
+
+    slug = models.SlugField(max_length=80, unique=True)
+    order = models.PositiveSmallIntegerField(default=0)
+    name = models.JSONField(help_text='{"en": "...", "fr": "...", "rw": "..."}; English is required.')
+    status = models.CharField(max_length=10, choices=ReviewStatus.choices, default=ReviewStatus.DRAFT)
+    reviewed_by_name = models.CharField(max_length=120, blank=True, help_text="Clinical reviewer.")
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["order"]
+        constraints = [_reviewed_needs_signoff("topic_reviewed_has_reviewer")]
+
+    def __str__(self):
+        return self.slug
+
+
 class EducationItem(models.Model):
     class Kind(models.TextChoices):
         ARTICLE = "article", "Article"
@@ -39,6 +61,7 @@ class EducationItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     slug = models.SlugField(max_length=80, unique=True)
     kind = models.CharField(max_length=12, choices=Kind.choices, default=Kind.ARTICLE)
+    topic = models.ForeignKey(Topic, null=True, blank=True, on_delete=models.SET_NULL, related_name="items")
     audience = models.CharField(max_length=12, choices=Audience.choices, default=Audience.ALL)
     source_name = models.CharField(max_length=200, help_text="Who the information comes from. Always shown.")
     source_url = models.URLField(blank=True)
@@ -65,6 +88,9 @@ class EducationTranslation(models.Model):
     summary = models.CharField(max_length=400, blank=True)
     body = models.TextField(blank=True)
     video_url = models.URLField(blank=True)
+    poster_url = models.URLField(blank=True, help_text="The video's poster image, shown before it plays.")
+    captions_url = models.URLField(blank=True, help_text="A WebVTT (.vtt) captions file for this video.")
+    duration_seconds = models.PositiveSmallIntegerField(null=True, blank=True)
     status = models.CharField(max_length=10, choices=ReviewStatus.choices, default=ReviewStatus.DRAFT)
     reviewed_by_name = models.CharField(max_length=120, blank=True, help_text="Language reviewer.")
     reviewed_at = models.DateTimeField(null=True, blank=True)

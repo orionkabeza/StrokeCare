@@ -9,7 +9,7 @@ Nothing below is solved by this repository. Items marked **BLOCKER** must be clo
 | # | What | Why it blocks | Who can close it |
 |---|---|---|---|
 | 1 | **No named clinical reviewer** (the team report: DEL-002 not started, DEC-003 open) | No education text, check-in question, threshold or emergency instruction can be marked reviewed. The database refuses "reviewed" without a name and date. | Supervisor / clinical partner |
-| 2 | **Emergency contacts are unverified** (DEC-004, R-004) | The app shows NO number until a verifier signs one off. The seed data contains none. | Clinical or local health partner |
+| 2 | **Emergency contacts: one verified so far.** Rwanda's SAMU ambulance (912) was signed off by Emmanuel Happy Rangira on 2026-11-15 in the local database (it is data, not code: enter it in each environment through the admin). A clinical or local health partner should still confirm it and any others (DEC-004, R-004). | The app shows no other number until a verifier signs it off. The seed data contains none. | Clinical or local health partner |
 | 3 | **Ethics approval and supervisor direction** for real users and real data (team report) | Required before interviews or any identifiable health data. | Supervisor |
 | 4 | **Consent and privacy text is not written.** Versions are the placeholder `0.1-draft`. | Users cannot give informed consent to text that does not exist. | Product owner + legal advice |
 | 5 | **Rwandan data-protection and health-software rules have not been checked** by anyone on this build, including whether the app counts as regulated medical software. | Unknown legal exposure with real health data. | Supervisor / legal advice |
@@ -48,3 +48,4 @@ Nothing below is solved by this repository. Items marked **BLOCKER** must be clo
 - Reading aloud uses the phone's own voice; many phones have no Kinyarwanda voice. Recorded audio was removed on request.
 - Tokens are in the browser's localStorage so people stay signed in; the strict Content Security Policy is the main defence against script injection reading them.
 - The browser end-to-end run used in the build session is not in CI yet. Add it with `@playwright/test`.
+15. **The new-symptoms list in the daily check-in** (face, arm or leg, speech, vision, balance, headache, confusion, swallowing, chest pain or breathing, a fall, plus "something else") was written by the developer in everyday words. A clinician should confirm the list and its wording. It is optional and always shown below the emergency guidance.

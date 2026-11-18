@@ -300,3 +300,14 @@ class ProgressView(PatientScopedMixin, APIView):
         if not 1 <= days <= 30:
             raise ValidationError({"days": ["Use a whole number from 1 to 30."]})
         return Response(services.build_progress(self.access.subject, days))
+
+
+class WeekView(PatientScopedMixin, APIView):
+    """Seven days of each metric for the week cards. Needs `view_summary`; inside it, each metric appears only
+    when its own view scope was shared."""
+
+    scope_by_method = {"GET": scopes.VIEW_SUMMARY}
+
+    def get(self, request, patient_ref):
+        granted = scopes.SELF_SCOPES if self.access.is_self else set(self.access.link.scopes)
+        return Response(services.build_week(self.access.subject, granted))

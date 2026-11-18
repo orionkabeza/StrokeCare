@@ -1,13 +1,14 @@
 // Owner: Emmanuel Happy Rangira (Frontend developer)
 import { html } from '../../dom.js'
 import { LOCALES, locale, setLocale, t } from '../../i18n.js'
-import { icon } from '../../ui.js'
+import { icon, pauseHeroOffscreen } from '../../ui.js'
 
 export default function welcome(ctx) {
   ctx.draw(html`<main class="page">
-    <section class="hero-head sc-hero">
+    <section class="hero-head">
+      <img src="/img/hero-heart.svg" alt="" class="hero-illustration" />
       <div class="sc-rise stack-s">
-        <h1 style="font-size: 2rem">${t('welcome.title')}</h1>
+        <h1 style="font-size: 1.75rem">${t('welcome.title')}</h1>
         <p class="muted" style="font-size: 1.05rem">${t('welcome.lead')}</p>
       </div>
       <div role="group" aria-label="${t('settings.language')}" class="row">
@@ -30,6 +31,7 @@ export default function welcome(ctx) {
     </div>
     <p class="tiny">${t('welcome.safety')}</p>
   </main>`)
+  pauseHeroOffscreen(ctx)
   // Choosing a language redraws the app in that language (the router listens for the change).
   ctx.on('click', '[data-lang]', (el) => setLocale(el.dataset.lang))
 }

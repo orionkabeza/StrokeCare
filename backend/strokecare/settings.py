@@ -187,10 +187,12 @@ if FRONTEND_DIST.exists():
     WHITENOISE_ROOT = FRONTEND_DIST
     WHITENOISE_INDEX_FILE = True
     WHITENOISE_MIMETYPES = {".webmanifest": "application/manifest+json"}
-# Applied to the app's page. Fonts come from Google Fonts; everything else from this site only.
+# Applied to the app's page. Fonts come from Google Fonts; Learn videos play in YouTube's no-cookie player (loaded
+# only after a tap) with their thumbnails from YouTube's image host; everything else from this site only.
 CONTENT_SECURITY_POLICY = (
     "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-    "font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; "
+    "font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; "
+    "frame-src https://www.youtube-nocookie.com; "
     "connect-src 'self'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; "
     "form-action 'self'"
 )

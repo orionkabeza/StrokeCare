@@ -1,12 +1,13 @@
 """Owner: Axel Mfura (Backend and database)"""
 import json
+import re
 
 from django.conf import settings
 from django.db import transaction
 from django.http import HttpResponse
 from django.utils import timezone
-from rest_framework import status
-from rest_framework.exceptions import AuthenticationFailed, ValidationError
+from rest_framework import serializers, status
+from rest_framework.exceptions import AuthenticationFailed, NotFound, ValidationError
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -16,8 +17,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.audit.models import AuditLog
 from apps.audit.services import record as audit
+from apps.common import limits
 
-from .models import AccessibilityPreference, Consent, ConsentKind
+from .models import AccessibilityPreference, Consent, ConsentKind, PersonalEmergencyContact
 from .serializers import (
     AccessibilityPreferenceSerializer,
     ConsentActionSerializer,
@@ -162,6 +164,9 @@ class ExportView(APIView):
                 {"relation": l.relation, "status": l.status, "scopes": l.scopes, "created_at": l.created_at}
                 for l in user.care_links.all()
             ],
+            "emergency_contacts": [
+                {"name": c.name, "relation": c.relation, "phone": c.phone} for c in user.emergency_contacts.all()
+            ],
             "access_log": [
                 {"at": e.at, "action": e.action, "by_role": getattr(e.actor, "role", None)}
                 for e in user.audit_entries.select_related("actor")
@@ -176,3 +181,43 @@ class ExportView(APIView):
         response = HttpResponse(body, content_type="application/json; charset=utf-8")
         response["Content-Disposition"] = 'attachment; filename="strokecare-my-data.json"'
         return response
+
+
+class EmergencyContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PersonalEmergencyContact
+        fields = ["id", "name", "relation", "phone"]
+
+    def validate_name(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("Write a name.")
+        return value.strip()
+
+    def validate_phone(self, value):
+        value = value.strip()
+        if not re.fullmatch(r"\+?[0-9][0-9 ()-]{1,22}", value):
+            raise serializers.ValidationError("Use digits, spaces and an optional + at the start.")
+        return value
+
+
+class EmergencyContactsView(APIView):
+    """The signed-in person's own people to call in an emergency."""
+
+    def get(self, request):
+        return Response({"results": EmergencyContactSerializer(request.user.emergency_contacts.all(), many=True).data})
+
+    def post(self, request):
+        if request.user.emergency_contacts.count() >= limits.PERSONAL_EMERGENCY_CONTACTS_MAX:
+            raise ValidationError({"detail": [f"You can keep up to {limits.PERSONAL_EMERGENCY_CONTACTS_MAX} people."]})
+        ser = EmergencyContactSerializer(data=request.data)
+        ser.is_valid(raise_exception=True)
+        ser.save(user=request.user)
+        return Response(ser.data, status=status.HTTP_201_CREATED)
+
+
+class EmergencyContactDetailView(APIView):
+    def delete(self, request, contact_id):
+        deleted, _ = request.user.emergency_contacts.filter(id=contact_id).delete()
+        if not deleted:
+            raise NotFound()
+        return Response(status=status.HTTP_204_NO_CONTENT)

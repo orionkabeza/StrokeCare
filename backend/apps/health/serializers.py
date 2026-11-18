@@ -91,6 +91,10 @@ def serialise_question(q: CheckInQuestion, locale: str) -> dict:
             {"value": c["value"], "label": pick(c.get("label", {}), locale)[0]} for c in (q.choices or [])
         ],
         "urgent_values": q.urgent_values,  # lets the app show urgent guidance the moment it is chosen
+        "follow_up": [
+            {"value": c["value"], "label": pick(c.get("label", {}), locale)[0]} for c in (q.follow_up or [])
+        ],
+        "follow_up_when": q.follow_up_when,
         "status": q.status,
         "reviewed_by": q.reviewed_by_name,
         "reviewed_at": q.reviewed_at,
@@ -102,6 +106,25 @@ class AnswerInSerializer(serializers.Serializer):
     question = serializers.SlugField()
     value = serializers.JSONField(required=False, allow_null=True)
     skipped = serializers.BooleanField(default=False)
+    detail = serializers.JSONField(required=False, allow_null=True)
+
+
+def validate_detail(q: CheckInQuestion, value, detail):
+    """Follow-up ticks are optional. Only listed options, only after an answer that shows them, each once."""
+    if not detail:
+        return None
+    error = serializers.ValidationError({"answers": [f"Those details are not valid for question '{q.code}'."]})
+    if not isinstance(detail, dict) or value not in (q.follow_up_when or []):
+        raise error
+    allowed = [c["value"] for c in (q.follow_up or [])]
+    choices = detail.get("choices") or []
+    if not isinstance(choices, list) or any(c not in allowed for c in choices) or len(set(choices)) != len(choices):
+        raise error
+    other = detail.get("other") or ""
+    if not isinstance(other, str):
+        raise error
+    other = other.strip()[: limits.NOTE_MAX_LENGTH]
+    return {"choices": choices, "other": other} if choices or other else None
 
 
 def validate_answer_value(q: CheckInQuestion, value):
@@ -132,9 +155,10 @@ class CheckInSubmitSerializer(serializers.Serializer):
                 raise serializers.ValidationError({"answers": [f"Question '{q.code}' appears twice."]})
             seen.add(q.code)
             if a["skipped"] or a.get("value") is None:
-                cleaned.append((q, None, True))
+                cleaned.append((q, None, True, None))
             else:
-                cleaned.append((q, validate_answer_value(q, a["value"]), False))
+                value = validate_answer_value(q, a["value"])
+                cleaned.append((q, value, False, validate_detail(q, value, a.get("detail"))))
         attrs["cleaned"] = cleaned
         return attrs
 
@@ -147,7 +171,7 @@ def serialise_checkin(ci: CheckIn) -> dict:
         "urgent_question_answered_yes": ci.urgent_answered,
         "entered_by_role": ci.entered_by.role if ci.entered_by else None,
         "answers": [
-            {"question": a.question.code, "value": a.value, "skipped": a.skipped}
+            {"question": a.question.code, "value": a.value, "skipped": a.skipped, "detail": a.detail}
             for a in ci.answers.select_related("question")
         ],
     }

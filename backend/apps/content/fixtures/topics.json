@@ -1,0 +1,47 @@
+[
+  {"slug": "recognising-a-stroke", "order": 1, "name": {
+    "en": "Recognising a stroke and what to do",
+    "fr": "Reconnaître un AVC et que faire",
+    "rw": "Kumenya ko umuntu afashwe na AVC n'icyo wakora"
+  }},
+  {"slug": "first-weeks-after-a-stroke", "order": 2, "name": {
+    "en": "The first weeks after a stroke",
+    "fr": "Les premières semaines après un AVC",
+    "rw": "Ibyumweru bya mbere nyuma ya AVC"
+  }},
+  {"slug": "blood-pressure-and-medicines", "order": 3, "name": {
+    "en": "Blood pressure and medicines",
+    "fr": "Tension artérielle et médicaments",
+    "rw": "Umuvuduko w'amaraso n'imiti"
+  }},
+  {"slug": "movement-and-exercises-at-home", "order": 4, "name": {
+    "en": "Movement and exercises at home",
+    "fr": "Mouvement et exercices à la maison",
+    "rw": "Kwimuka n'imyitozo mu rugo"
+  }},
+  {"slug": "speech-and-communication", "order": 5, "name": {
+    "en": "Speech and communication",
+    "fr": "Parole et communication",
+    "rw": "Kuvuga no kuvugana"
+  }},
+  {"slug": "eating-drinking-and-swallowing", "order": 6, "name": {
+    "en": "Eating, drinking and swallowing",
+    "fr": "Manger, boire et avaler",
+    "rw": "Kurya, kunywa no kumira"
+  }},
+  {"slug": "caring-for-someone-after-a-stroke", "order": 7, "name": {
+    "en": "Caring for someone after a stroke",
+    "fr": "S'occuper d'une personne après un AVC",
+    "rw": "Kwita ku muntu wafashwe na AVC"
+  }},
+  {"slug": "feelings-mood-and-tiredness", "order": 8, "name": {
+    "en": "Feelings, mood and tiredness",
+    "fr": "Émotions, humeur et fatigue",
+    "rw": "Uko wiyumva, imyifatire n'umunaniro"
+  }},
+  {"slug": "preventing-another-stroke", "order": 9, "name": {
+    "en": "Preventing another stroke",
+    "fr": "Prévenir un autre AVC",
+    "rw": "Kwirinda AVC indi"
+  }}
+]

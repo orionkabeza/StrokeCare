@@ -16,6 +16,9 @@ const periodOf = (time) => {
 export default async function medicines(ctx) {
   const { base, isSelf } = ctx
   let data = null
+  // The rise-in entrance plays once, for the first real content; a later redraw from ticking a dose or marking
+  // a period isn't a new appearance, so it must not replay on every row.
+  let entered = false
   const doses = () =>
     (data?.medications ?? []).flatMap((m) => m.doses_on_day.map((d) => ({ ...d, med: m }))).sort((a, b) => a.time.localeCompare(b.time))
   const nextDose = () => {
@@ -44,7 +47,7 @@ export default async function medicines(ctx) {
             ${g.doses.some((d) => !d.taken) ? html`<button class="sc-chip" data-act="mark-all" data-period="${g.period}">${icon('check-circle', 18)}${t('meds.markAll')}</button>` : ''}
           </div>
           ${g.doses.map(
-            (d, i) => html`<div class="sc-card sc-rise list-row" style="animation-delay: ${i * 40}ms">
+            (d, i) => html`<div class="sc-card${entered ? '' : ' sc-rise'} list-row" style="${entered ? '' : `animation-delay: ${i * 40}ms`}">
               <strong style="width: 3.5rem; font-size: 1.15rem">${d.time}</strong>
               <span class="stack-s" style="flex-grow: 1">
                 <strong>${d.med.name}</strong>
@@ -67,6 +70,7 @@ export default async function medicines(ctx) {
       toast(errorText(e))
     }
     ctx.draw(view())
+    entered = true
   }
   ctx.draw(view())
   load()

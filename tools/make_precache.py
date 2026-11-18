@@ -47,7 +47,7 @@ def main() -> int:
             return 1
         print(f"OK: service worker lists {len(urls)} files, version {version}")
         return 0
-    SW.write_text(fresh)
+    SW.write_text(fresh, newline="\n")  # LF on every OS: the CI check compares raw bytes
     print(f"Wrote {len(urls)} files, version {version}")
     return 0
 

@@ -13,4 +13,5 @@ urlpatterns = [
     path("patients/<patient:patient_ref>/phrases/", views.PhrasesView.as_view()),
     path("patients/<patient:patient_ref>/phrases/<uuid:phrase_id>/", views.PhraseDetailView.as_view()),
     path("patients/<patient:patient_ref>/progress/", views.ProgressView.as_view()),
+    path("patients/<patient:patient_ref>/week/", views.WeekView.as_view()),
 ]

@@ -12,6 +12,7 @@ import { icon } from './ui.js'
 
 const BARE = ['/login', '/register', '/consent']
 let online = navigator.onLine
+let beaconed = false
 
 /** The tabs for this kind of account. */
 function tabs() {
@@ -71,10 +72,15 @@ export function renderChrome() {
   set(
     'side-nav',
     wide && !bare
-      ? html`<a href="/doctor" class="brand" style="color: var(--on-hero); padding: 0 0.5rem 1.25rem">
-            <span class="brand-mark sc-glass">${icon('heartbeat', 22, 'duotone')}</span>StrokeCare
+      ? html`<a href="/doctor" class="brand" style="padding: 0 0.5rem 1.25rem">
+            <span class="brand-mark">${icon('heartbeat', 22, 'duotone')}</span>StrokeCare
           </a>
-          ${list.map((tab) => html`<a href="${tab.to}" class="side-link" aria-current="${isActive(tab.to) ? 'page' : 'false'}">${icon(tab.icon, 22)}${tab.label}</a>`)}`
+          ${list.map((tab) => {
+            const active = isActive(tab.to)
+            return html`<a href="${tab.to}" class="side-link" aria-current="${active ? 'page' : 'false'}">
+              <span class="sc-tab-icon">${icon(tab.icon, 22, active ? 'fill' : 'regular')}</span>${tab.label}
+            </a>`
+          })}`
       : '',
   )
   document.getElementById('side-nav').setAttribute('aria-label', t('nav.main'))
@@ -86,8 +92,9 @@ export function renderChrome() {
       : html`<a href="${auth.signedIn ? auth.home : '/welcome'}" class="brand">
             <span class="brand-mark">${icon('heartbeat', 22, 'duotone')}</span><span>StrokeCare</span>
           </a>
-          <a href="/emergency" class="sc-emergency">${icon('siren', 20, 'fill')}${t('emergency.button')}</a>`,
+          <a href="/emergency" class="sc-emergency${beaconed ? '' : ' sc-beacon'}">${icon('phone-call', 20, 'fill')}${t('emergency.button')}</a>`,
   )
+  if (!bare) beaconed = true
 
   const notices = []
   if (!online || pendingCount.value)
@@ -96,16 +103,18 @@ export function renderChrome() {
       ${pendingCount.value ? html`<span>${t('offline.pending', { n: pendingCount.value })}</span>` : ''}</p>`)
   if (showingCopy.value)
     notices.push(html`<p class="banner" role="status" style="margin: 0.75rem 1rem 0">${icon('wifi-slash', 20)}<span>${t('offline.copyShown')}</span></p>`)
-  set('notices', notices)
+  set('notices', html`${notices}`)
 
   set(
     'tabbar',
     bare
       ? ''
-      : list.map((tab) => {
+      : html`${list.map((tab) => {
           const active = isActive(tab.to)
-          return html`<a href="${tab.to}" class="sc-tab" aria-current="${active ? 'page' : 'false'}">${icon(tab.icon, 26, active ? 'fill' : 'regular')}${tab.label}</a>`
-        }),
+          return html`<a href="${tab.to}" class="sc-tab" aria-current="${active ? 'page' : 'false'}" title="${tab.label}">
+            <span class="sc-tab-icon">${icon(tab.icon, 22, active ? 'fill' : 'regular')}</span><span class="sc-tab-label">${tab.label}</span>
+          </a>`
+        })}`,
   )
   document.getElementById('tabbar').setAttribute('aria-label', t('nav.main'))
 }
