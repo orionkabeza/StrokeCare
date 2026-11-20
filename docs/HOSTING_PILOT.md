@@ -39,6 +39,10 @@ Everything else means routing to Europe (Fly.io and Render's closest region is F
 | **Encryption at rest** | Provider-managed (check their current docs to confirm) | Provider-managed | Provider-managed, newer feature set | Only if you set it up (e.g. encrypted volumes) |
 | **Who can access the data** | Render's own staff, under their security policy — check their current SOC 2 / compliance status before trusting it with real health data | Fly's own staff, under their policy | Railway's own staff | Only your team, if you manage the VPS yourself and lock it down — more containment, but only as good as your own practices |
 
+## Oracle Cloud Always Free (also set up)
+
+A second route, for a no-cost demo host: one Always Free VM running `docker-compose.prod.yml` (app, worker, PostgreSQL, Caddy for HTTPS). Closest region is Johannesburg. It has no managed database and no backups of its own, so it is for fictional demo data only. Steps: `docs/DEPLOY_ORACLE.md`.
+
 ## Recommendation
 
 **Render**, EU (Frankfurt) region, for the pilot, with fictional demo data:
