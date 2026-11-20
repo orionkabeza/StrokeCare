@@ -1,0 +1,6 @@
+# Owner: Orion Kabeza (DevOps)
+# Caddy gets and renews the HTTPS certificate by itself for the name in DOMAIN, and passes requests to the app.
+{$DOMAIN} {
+	encode gzip
+	reverse_proxy web:8000
+}
